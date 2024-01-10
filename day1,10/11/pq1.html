@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,
+initial-scale=1.0" />
+    <title>pq , 11unka</title>
+    <style>
+        #mainTopic {
+            color: blue;
+        }
+
+        * {
+            text-align: center;
+        }
+
+        h1,
+        h3,
+        h5 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .allP {
+            color: white;
+            background-color: cornflowerblue;
+        }
+
+        button {
+            background-color: purple;
+            color: azure;
+        }
+
+        button:hover {
+            background-color: yellow;
+            color: blue;
+        }
+
+        p:nth-of-type(2n+1) {
+            color: yellow;
+        }
+
+        h1::first-letter {
+            color: red;
+        }
+
+        /* don't know ans */
+        #yes:checked+label {
+            color: darkgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- most to least important or preferd -->
+    <!-- id > div.main > .main > h1 -->
+    <h1 id="mainTopic">CSS Practice</h1>
+    <h3>Let's learn about selector.</h3>
+    <!-- Paragraph1 -->
+    <p class="allP">There are multiple selectors in css.</p>
+    <!-- Paragraph2 -->
+    <p class="allP">Some of them include class selector, id selector etc.</p>
+    <!-- Paragraph3 -->
+    <p class="allP">And we can also combine these too.</p>
+    <div>
+        CSS (Part 2)
+        Practice Questions
+        We are going to write CSS for the following code :
+        (Please copy-paste or re-write this code in your HTML file)
+        PART A (Selectors)
+        Qs1. Give the h1 header a unique id - “mainTopic” & set its color to blue using the id
+        selector.
+        Qs2. Align all the text in the page to the center using a universal selector.
+        Qs3. Change the font style of all heading tags in the page to ‘Georgia’.
+        Qs4. Set the color of all the paragraphs to white & background color to cornflowerblue.
+        (Without using the element selector - ‘p’)
+        Qs5. Select all buttons inside div and change their background color to purple & text
+        color to azure.
+        PART B (Pseduo class & elements)
+        <h5>Did you like the practice set?</h5>
+        <input type="checkbox" id="yes" />
+        <label for="yes">Yes</label>
+        <br />
+        <button>Learn next!</button>
+    </div>
+</body>
+
+</html>
