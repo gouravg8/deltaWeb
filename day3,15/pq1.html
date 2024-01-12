@@ -61,7 +61,36 @@
         grid-column: 1/13;
     }
 
-    
+    @media screen and (max-width: 720px) {
+        * {
+            background: greenyellow;
+        }
+
+        nav {
+            grid-row: 2/3;
+            grid-column: 1/13;
+        }
+
+        .slider {
+            grid-row: 3/12;
+            grid-column: 1/4;
+        }
+
+        main {
+            grid-row: 3/12;
+            grid-column: 4/13;
+        }
+
+        .ads {
+            grid-row: 12/13;
+            grid-column: 1/4;
+        }
+
+        footer {
+            grid-row: 12/13;
+            grid-column: 4/13;
+        }
+    }
 </style>
 
 <body>
