@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pq1, pq2, day3, 15unka</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-gap: 10px;
+    }
+
+    header,
+    .slider,
+    nav,
+    .ads,
+    main,
+    footer {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 1.3rem;
+        padding: 1vh;
+        background: pink;
+    }
+
+    header {
+        grid-row: 1/2;
+        grid-column: 1 / 13;
+    }
+
+    .slider {
+        grid-row: 2 / 12;
+        grid-column: 1 / 4;
+    }
+
+    nav {
+        grid-row: 2/3;
+        grid-column: 4/10;
+    }
+
+    main {
+        grid-row: 3/12;
+        grid-column: 4/10;
+    }
+
+    .ads {
+        grid-row: 2/12;
+        grid-column: 10/13;
+    }
+
+    footer {
+        grid-row: 12/13;
+        grid-column: 1/13;
+    }
+
+    
+</style>
+
+<body>
+    <div class="container">
+        <header>header(1row, 12 col)</header>
+        <div class="slider">sidebar(10row, 3col)</div>
+        <nav>navigation(1row, 6col)</nav>
+        <main>main(9row, 6col)</main>
+        <div class="ads">ads(10row,3col)</div>
+        <footer>footer(1row, 12col)</footer>
+    </div>
+</body>
+
+</html>
