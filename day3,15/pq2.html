@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pq2, day15unka</title>
+</head>
+<style>
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid rgb(32, 119, 218);
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 1s cubic-bezier(.68, .24, .78, .33) infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            /* Set rotation to 0 degrees */
+            transform: rotate(0deg);
+        }
+
+        100% {
+            /* Set rotation to 360 degrees */
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<body>
+    <h1>Loader</h1>
+    <div class="loader"></div>
+</body>
+
+</html>
