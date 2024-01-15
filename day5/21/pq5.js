@@ -30,6 +30,11 @@ if (str2[index] === lowerCaseOfIndex) {
   console.log("not lower");
 }
 
+// pq5(remove spaces from front and back)
+let str3 = ' any thing is here '
+let strippedStr3 = str3.trim()
+console.log(strippedStr3);
+
 // pq6
 let arr2 = ["a", "b", "c", "d", "e"];
 let findEl = "x";
