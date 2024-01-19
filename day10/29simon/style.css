@@ -40,5 +40,8 @@ body {
   background: blue;
 }
 .flash{
-  background: #fff;
+  background-color: #fff !important;
+}
+.userFlash{
+  background-color: #0f0 !important;
 }
