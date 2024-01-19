@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0 auto;
+  text-align: center;
+}
+.outerBox {
+  /* width: 50%; */
+  margin: 20px auto;
+}
+.topBox,
+.bottomBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  background: #000;
+  width: 10rem;
+  height: 10rem;
+  margin: 10px 10px;
+  cursor: pointer;
+  border: 0.3rem solid black;
+  border-radius: 2rem;
+}
+#red {
+  background: red;
+}
+#yellow {
+  background: yellow;
+}
+#green {
+  background: green;
+}
+#blue {
+  background: blue;
+}
+.flash{
+  background: #fff;
+}
