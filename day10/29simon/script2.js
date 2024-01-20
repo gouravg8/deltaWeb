@@ -3,10 +3,15 @@ let userSeq = [];
 let btns = ["red", "yellow", "green", "blue"];
 let started = false;
 let level = 0;
+let allBtns = document.querySelectorAll(".box");
+let highestScore = 0;
 
 let h2 = document.querySelector("#level");
 start();
 function start() {
+  document.querySelector("#highScore").textContent =
+    localStorage.getItem("highScore");
+
   document.addEventListener("keyup", function () {
     if (!started) {
       console.log("start ho gya");
@@ -32,10 +37,18 @@ function userFlash(btn) {
 }
 
 function resetGame() {
+  if (level > highestScore) highestScore = level;
+  localStorage.setItem("highScore", highestScore);
+  h2.innerHTML = `Press any key to start <br> your score was: ${level}`;
+
   userSeq = [];
   gameSeq = [];
   level = 0;
-  h2.textContent = "press any key to start";
+  started = false;
+  document.body.classList.add("gameOver");
+  setTimeout(() => {
+    document.body.classList.remove("gameOver");
+  }, 500);
 }
 
 function levelUp() {
@@ -62,7 +75,6 @@ function checkSeq(idx) {
   } else {
     h2.textContent = "Game over";
     console.error("Game over");
-    level = 0;
     resetGame();
     start();
   }
@@ -78,7 +90,6 @@ function btnPressed() {
   checkSeq(userSeq.length - 1);
 }
 
-let allBtns = document.querySelectorAll(".box");
 for (const btn of allBtns) {
   btn.addEventListener("click", btnPressed);
 }
