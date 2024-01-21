@@ -5,10 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>day11, 31unka, async and await</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.fluid.classless.min.css"> -->
 </head>
+<style>
+    :root {
+        --primary: #fb8c00;
+    }
+</style>
 
 <body>
-    <p>doing async</p>
+    <main>
+        <p id="data">doing async</p>
+        <button type="submit" id="fetch" style="cursor: pointer;">Fetch</button>
+
+
+        <button type="submit" id="dogBtn">Get Dog</button><br>
+        <img src="" alt="" id="dogImg">
+    </main>
     <script src="1Async.js"></script>
 </body>
 

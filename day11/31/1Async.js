@@ -32,13 +32,34 @@
 // }
 // demo();
 
+let pData = document.querySelector("#data");
+let btnFetch = document.querySelector("#fetch");
 
-async function getCatFact() {
-  // let result = await fetch('https://catfact.ninja/fact')
-  // let result = await fetch('https://www.boredapi.com/api/activity')
-  let result = await fetch('https://dog.ceo/api/breeds/image/random')
-  let data = await result.json()
-  console.log(data);
+async function fetchTheData() {
+  try {
+    let result = await fetch("https://catfact.ninja/fact");
+    // let result = await fetch('https://www.boredapi.com/api/activity')
+    // let result = await fetch("https://dog.ceo/api/breeds/image/random");
+    let data = await result.json();
+    pData.textContent = data.fact;
+  } catch (err) {
+    console.error("birro err: ", err);
+  }
+  // console.log(data);
 }
 
-getCatFact()
+btnFetch.addEventListener("click", fetchTheData);
+
+let dogBtn = document.querySelector("#dogBtn");
+let dogImg = document.querySelector("#dogImg");
+async function getDogImage() {
+  try {
+    let result = await fetch("https://dog.ceo/api/breeds/image/random");
+    let data = await result.json();
+    dogImg.src = data.message;
+  } catch (err) {
+    console.error("biro err: ", err);
+  }
+  // console.log(data);
+}
+dogBtn.onclick = getDogImage;
