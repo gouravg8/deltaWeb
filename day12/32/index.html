@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>api practice, day12,32</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.css"
+        integrity="sha512-dUOcWaHA4sUKJgO7lxAQ0ugZiWjiDraYNeNJeRKGOIpEq4vroj1DpKcS3jP0K4Js4v6bXk31AAxAxaYt3Oi9xw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css">
+</head>
+<style>
+    .container {
+        margin: 100px auto;
+    }
+
+    .inputPart {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 50px auto;
+    }
+
+    #inpQuery {
+        width: 100%;
+        /* flex: 90%; */
+        margin: auto 1rem;
+    }
+
+    #btnSubmit {
+        font-size: 1.2rem;
+        width: 20%;
+        padding: 10px 10px;
+        /* flex: 5%; */
+        margin: auto 1rem;
+    }
+
+    #olOutput {
+        margin: auto 10%;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <form class="inputPart">
+            <input type="text" name="query" id="inpQuery" placeholder="Search University by State name">
+            <button type="submit" id="btnSubmit">
+                <i class="ri-search-line"></i>
+            </button>
+        </form>
+        <ol id="olOutput">
+            <!-- <li>faltu college</li>
+            <li>el or</li> -->
+        </ol>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
