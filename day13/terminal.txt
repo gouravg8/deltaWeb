@@ -1,0 +1,37 @@
+#basic commands
+ls - list items
+pwd - print working directory
+clear - clear terminal
+
+#navigation commands
+cd - change directory
+cd .. - back button
+
+#path in navigation
+cd Desktop/Delta (relative path)
+cd /User/Gourav/Desktop/Delta (absolute path)
+
+/ - (root directory of the terminal)
+~ - (home directory of the desktop)
+
+#making directories
+mkdir - make directory(folder that can have more folders or files)
+
+#flags - 
+'manual command'
+man ls - open manual about 'ls'
+man mkdir - open manual about 'mdkir'
+
+'with flags'
+ls -l -> list all info about files
+ls -a -> list all the files including hidden files
+ls -la -> list all info of all the hidden files
+
+#touch command
+touch -> main(old)- changing the date of file
+	new - if files are not available create new one
+
+#deleting
+rm - remove files
+rmdir - remove empty files
+rm -rf - remove files and folder recursively(folder of folder) with force
