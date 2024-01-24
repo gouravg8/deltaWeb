@@ -1,0 +1,100 @@
+Git: Free and open source version control system that helps us to track the changes in the code
+    1. track history
+    2. help to collaborate
+
+Github: Website used to host "repositories online"
+
+# Configure Git(username and pass)
+- git configure --global user.name "gouravsoni"
+- git configure --global user.email "gourabsoni@gmail.com"
+
+// we can update informations using the same command and put new "values" that automatically change the "values"
+
+# Basic Git commands
+.clone the repo on our local system
+- git clone <url>
+
+.status shows the current status of the code in git track sytem
+-git status
+
+#Push commands
+    1. init git(now git will track our files)
+        - git init
+    2. Add remote origin
+        - git remore add origin <link>
+    3. To verify remote(location where code is going to be upload)
+        - git remote -v
+    4. See all branches(branch list)
+        - git branch
+    5. Rename branch
+        - git branch -M main(renaming default master branch to main)
+    6. Push to remote
+        - git push origin main
+    7. For remembering default push location branch
+        - git push -u origin main(-u => upstream)
+        (now we can push all code with simple command)
+        - git push
+    8. Add & commit in one line
+        - git add . & git commit -m "msg" (me)
+        - git commit -am "msg" (delta)
+
+# Workflow
+    Github => code change -> commit
+    Git => code change -> add -> commit -> push
+
+# Git branches
+    We can have multiple branches for multiple features and bugs 
+
+# Branch commands
+    1. To check branch
+        - git branch
+    2. Rename branch
+        - git branch -M main
+    3. Go to branch
+        - git checkout <branchName>
+    4. To create new branch
+        - git checkout -b <newBranchName>
+    5. To delete branch
+        - git branch -d <branchName>
+        (we can only delete another branch and not the branch that we are in {checkouted})
+
+# Merging branches
+... checkout new branch
+... set upsteam to it for publishing the newBranch on github
+    - git push --set-upsteam origin <newBranch>
+
+    1. To compare commits, branches, files and more
+        - git diff <anotherBranchName>
+        (when i'm in 'main' branch)
+    2. To merge two branches
+        (me from 'main' branch merging 'anotherBranch' on 'main')
+        - git merge <anotherBranch>
+
+    OR WE HAVE TO RAISE THE PR(pull request)
+        ... it lets you tell others about changes you have pushed to a branch in a repo on Github
+
+# Pull command
+    ... Used to fetchand download cntent from a remote repo and imidiatly update the local repo to the match content
+    - git pull origin main ('main' -> konsi branch pull karni hai)
+
+# Merge conflicts
+    ... An event that takes place when Git is unable to automatically resolve difference in code between two commits
+    (you can keep what you want and what to delete in the code when conflickts arises and then merge it)
+
+# Fixing mistakes
+    case 1: staged changes(git add ho gyi galt cheeje)
+        - git reset <fileName>
+    case 2: commited changes(for one commit)
+        - git HEAD~1
+    case 3: commited changes(for multiple commits)
+        - git reset <commitHash>
+        (iske bad ke sab commits unstage ho jayenge)
+
+    ... delete all the commits after that
+        - git reset --hard <commitHash>
+
+# Forking
+    ... downloading others repo on our(my) Github account and then make changes(by me)
+    ... A fork is anew repo that shares code and visibility setting with the original "upsteam" repo
+    => Form is a rough copy
+    => And can merge on other original repo by PR (pull request)
