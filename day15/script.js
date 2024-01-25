@@ -15,4 +15,4 @@
 
 
 import fruits from "./fruits/index.js";
-console.log(fruits);
+console.log(fruits[0].naam);
