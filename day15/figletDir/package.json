@@ -1,0 +1,14 @@
+{
+  "name": "figlet-g",
+  "version": "1.0.0",
+  "description": "patani",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gourav soni",
+  "license": "ISC",
+  "dependencies": {
+    "figlet": "^1.7.0"
+  }
+}
