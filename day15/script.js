@@ -10,5 +10,9 @@
 // 	console.log('hello', arg[i]);
 // }
 
-import { sum } from "./myMath.js";
-console.log(sum(3,4,5));
+// import { sum } from "./myMath.js";
+// console.log(sum(3,4,5));
+
+
+import fruits from "./fruits/index.js";
+console.log(fruits);
