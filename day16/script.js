@@ -33,10 +33,20 @@ app.get("/apple", (req, res) => {
   });
 });
 
-app.get("/ig/:username", (req, res) => {
-  let { username } = req.params;
-  res.send(`this is username: 
-    @${username}`);
+app.get("/ig/:username/:id", (req, res) => {
+  let { username, id } = req.params;
+  console.log(req.params);
+  res.send(`this is username: @${username} and id: ${id}`);
+});
+
+app.get("/search", (req, res) => {
+  // let { q, color } = req.query;
+  let { q } = req.query;
+  // if(!q || !color) req.send('nothing searched')
+  if (!q) res.send("nothing searched");
+  console.log(req.query);
+  // res.send(`query: ${q}, color: ${color}`);
+  res.send(`query: ${q}`);
 });
 
 app.get("*", (req, res) => res.send("Galat jagah aaye ho biro"));
