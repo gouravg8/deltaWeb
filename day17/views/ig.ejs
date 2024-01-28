@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ig-gourav</title>
+    <link rel="shortcut icon" href="https://fav.farm/😆" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <% let {name, followers, following, posts}=igData %>
+        <%# console.log(igData) %>
+            <%# for(let user in igData){ %>
+
+                <div class="container w-full px-2 mx-auto my-8">
+                    <h2 class="text-2xl text-semibold my-3">Name: <%= name %>
+                    </h2>
+                    <div class="follow flex gap-4 my-3">
+                        <p>follower: <%= followers %>
+                        </p>
+                        <p>following: <%= following %>
+                        </p>
+                    </div>
+                    <hr>
+                    <p class="text-xl my-4">Posts</p>
+                    <div class="posts flex gap-3">
+                        <% for(let post of posts) {%>
+                            <div class="post">
+                                <img src=<%=post['image']%> class='rounded' alt="" srcset="" width='250px'>
+
+                                <div class="likecomment flex justify-center align-middle gap-4 my-2 w-full">
+                                    <p class="font-semibold">like: <%=post['likes']%>
+                                    </p>
+
+                                    <p class="font-semibold">comments: <%=post['comments']%>
+                                    </p>
+                                </div>
+                            </div>
+                            <%}%>
+                    </div>
+                </div>
+                <%# } %>
+</body>
+
+</html>
