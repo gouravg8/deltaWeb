@@ -1,0 +1,13 @@
+<%- include('header',{title: 'New post' }) %>
+
+    <body>
+        <form action="/posts/new" method="post" class="flex flex-col border p-8 gap-5">
+            <input class="" type="text" name="username" id="" placeholder="Enter username">
+            <textarea class="p-8" name="content" placeholder="Enter your post here" id="" cols="30" rows="10"></textarea>
+
+            <button type="submit" class="py-3 bg-blue-500 text-white ">Post</button>
+        </form>
+        
+    </body>
+
+    </html>

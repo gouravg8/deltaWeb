@@ -1,0 +1,32 @@
+<%- include('header', {title: 'Home - Quora' } )%>
+
+    <body>
+        <%# console.log(posts) %>
+
+            <div class="container px-6 py-4">
+                <div class="head flex justify-between align-middle">
+                    <h1 class="text-3xl font-semibold">Quora Posts</h1>
+                    <a href="/posts/new" class="text-blue-600 underline">New Post</a>
+                </div>
+
+                <% for( let post of posts ) { %>
+                    <!-- <p>d<%= post['username'] %></p> -->
+
+                    <div class="posts px-4 my-5 flex flex-col gap-2">
+                        <p class="font-semibold  italic">@<%= post.username %>
+                        </p>
+                        <p>
+                            <%= post.content %>
+                        </p>
+                        <div class="detailAndEdit">
+                            <a class="text-blue-800 underline" href="/detail">See in deail</a>
+                            <a class="text-blue-800 underline" href="">Edit Post</a>
+                        </div>
+                        <button class="py-2 px-4 bg-blue-500 text-white rounded w-32">Delete Post</button>
+                    </div>
+                    <hr>
+                    <% } %>
+            </div>
+    </body>
+
+    </html>
