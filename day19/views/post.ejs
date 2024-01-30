@@ -1,0 +1,17 @@
+<%- include('header',{title: 'Post' }) %>
+
+    <html>
+
+    <body>
+        <div class="posts px-4 my-5 flex flex-col gap-2">
+            <p class=" italic">id: <%= post.id %>
+            </p>
+            <p class="font-semibold  italic">@<%= post.username %>
+            </p>
+            <p>
+                <%= post.content %>
+            </p>
+        </div>
+    </body>
+
+    </html>
