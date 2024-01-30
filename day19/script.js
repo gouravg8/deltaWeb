@@ -23,15 +23,14 @@ app.listen(port, () => console.log(`listning on ${port}`));
 
 // demo posts stored in array
 let posts = [
+  { id: "1a", username: "gourav", content: "I am a fullstack developer" },
   {
-    username: "gourav",
-    content: "I am a fullstack developer",
-  },
-  {
+    id: "1b",
     username: "sourav",
     content: "main to iphone launga",
   },
   {
+    id: "1c",
     username: "anu",
     content: "main barbad hona chahta hun",
   },
@@ -45,9 +44,11 @@ app.get("/posts/new", (req, res) => {
   res.render("newPost");
 });
 
-app.post("/posts/new", async (req, res) => {
+app.post("/posts", async (req, res) => {
   let { username, content } = req.body;
-//   console.log(username, content);
-  posts.push({ username: username, content: content });
-  res.render("index", { posts });
+  //   console.log(username, content);
+  posts.push({ username, content });
+  res.redirect("/posts");
 });
+
+
