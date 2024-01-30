@@ -51,4 +51,12 @@ app.post("/posts", async (req, res) => {
   res.redirect("/posts");
 });
 
+app.get("/posts/:id", (req, res) => {
+  let { id } = req.params;
+  let post = posts.find((p) => p.id === id);
+  res.render("post", { post });
+});
 
+app.get("*", (req, res) => {
+  res.send("Wrong URL");
+});
