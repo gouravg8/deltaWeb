@@ -3,6 +3,8 @@ import path from "path";
 const app = express();
 const port = 8080;
 
+// uuid import
+import { v4 as uuidv4 } from "uuid";
 // * for path
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -46,8 +48,9 @@ app.get("/posts/new", (req, res) => {
 
 app.post("/posts", async (req, res) => {
   let { username, content } = req.body;
+  let id = uuidv4();
   //   console.log(username, content);
-  posts.push({ username, content });
+  posts.push({ id, username, content });
   res.redirect("/posts");
 });
 
