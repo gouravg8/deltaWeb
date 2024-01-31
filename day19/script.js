@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 const app = express();
 const port = 8080;
-
+import methodOverride from "method-override";
 // uuid import
 import { v4 as uuidv4 } from "uuid";
 // * for path
@@ -15,6 +15,8 @@ const __dirname = dirname(__filename);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// override method
+app.use(methodOverride("_method"));
 // set path of views(ejs)
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
@@ -43,10 +45,10 @@ app.get("/posts", (req, res) => {
 });
 
 app.get("/posts/new", (req, res) => {
-  res.render("newPost");
+  res.render("new");
 });
 
-app.post("/posts", async (req, res) => {
+app.post("/posts", (req, res) => {
   let { username, content } = req.body;
   let id = uuidv4();
   //   console.log(username, content);
@@ -58,6 +60,30 @@ app.get("/posts/:id", (req, res) => {
   let { id } = req.params;
   let post = posts.find((p) => p.id === id);
   res.render("post", { post });
+});
+
+app.get("/posts/:id/edit", (req, res) => {
+  let { id } = req.params;
+  let post = posts.find((p) => p.id === id);
+  res.render("edit", { post });
+});
+
+app.patch("/posts/:id", (req, res) => {
+  // res.send("working patch");
+  let { id } = req.params;
+  // let contentt = req.body.content;
+  let post = posts.find((p) => p.id === id);
+  post.content = req.body.content;
+  res.redirect("/posts");
+});
+
+app.delete("/posts/:id", (req, res) => {
+  let { id } = req.params;
+  // let pidx = posts.findIndex((p) => p.id === id);
+  // posts.splice(pidx, 1);
+  // console.log(id,pidx)
+  posts = posts.filter((p) => p.id !== id);
+  res.redirect("/posts");
 });
 
 app.get("*", (req, res) => {
