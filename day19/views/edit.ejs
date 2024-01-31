@@ -1,0 +1,20 @@
+<%- include('header', {title: 'Edit form' }) %>
+    <html>
+
+    <body>
+        <form action="/posts/<%- post.id %>" method="patch" class="posts px-4 my-5 flex flex-col gap-2">
+            <p>
+                Id: <%= post.id %>
+            </p>
+            <p>User name: <span class="font-semibold  italic">@<%= post.username %>
+                </span></p>
+
+
+            <textarea class="p-8" name="content" placeholder="Enter your post here" id="" cols="30"
+                rows="10"><%= post.content %></textarea>
+
+            <button type="submit" class="py-3 bg-blue-500 text-white ">Post</button>
+        </form>
+    </body>
+
+    </html>
