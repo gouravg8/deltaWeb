@@ -8,12 +8,12 @@
   <%# result.username %>
   <%# result.email %>
   <%# } %>
-
   <table border="1">
     <thead>
       <td>Id</td>
       <td>Username</td>
       <td>Email</td>
+      <td>Delete</td>
     </thead>
     <% for( let result of results ) { %>
     <tbody>
@@ -31,6 +31,11 @@
       </td>
       <td>
         <%= result.email %>
+      </td>
+      <td>
+        <form class="flex flex-col align-middle justify-center" action="/user/<%= result.id %>?_method=DELETE" method="post">
+          <button class="ri-delete-bin-5-line text-lg border-none"></>
+        </form>
       </td>
     </tbody>
     <% } %>
