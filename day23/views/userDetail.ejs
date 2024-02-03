@@ -1,0 +1,40 @@
+<%- include('header', {title: 'Details' }) %>
+<html>
+
+<body>
+
+  <%# for( let result of results ) { %>
+  <%# result.id %>
+  <%# result.username %>
+  <%# result.email %>
+  <%# } %>
+
+  <table border="1">
+    <thead>
+      <td>Id</td>
+      <td>Username</td>
+      <td>Email</td>
+    </thead>
+    <% for( let result of results ) { %>
+    <tbody>
+      <%# result.id %>
+      <%# result.username %>
+      <%# result.email %>
+
+      <td class="font-semibold">
+        <a href="/user/<%= result.id %>">
+          <%= result.id %>
+        </a>
+      </td>
+      <td>
+        <%= result.username %>
+      </td>
+      <td>
+        <%= result.email %>
+      </td>
+    </tbody>
+    <% } %>
+  </table>
+</body>
+
+</html>
