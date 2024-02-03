@@ -88,9 +88,20 @@ app.post("/new", async (req, res) => {
   const { email, username, password } = req.body;
   const id = faker.string.uuid();
   let newUserQ = `INSERT INTO user (id, username, email, password) VALUES ('${id}','${username}','${email}','${password}')`;
-  log("hi");
   try {
     const [results] = await connection.query(newUserQ);
+    console.log(results);
+    res.redirect("/user");
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+app.delete("/user/:id", async (req, res) => {
+  const { id } = req.params;
+  const deleteQ = `DELETE FROM user WHERE id = '${id}'`;
+  try {
+    const [results] = await connection.query(deleteQ);
     console.log(results);
     res.redirect("/user");
   } catch (error) {
