@@ -5,6 +5,7 @@ import ejs from "ejs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import methodOverride from "method-override";
+import { log } from "console";
 
 const app = express();
 const port = 8080;
@@ -12,7 +13,7 @@ app.set("view engine", "ejs");
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.set("views", path.join(__dirname, "/views"));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.listen(port, (req, res) => console.log(`port ${port}`));
 // Create the connection to database
 
@@ -77,6 +78,23 @@ app.patch("/user/:id", async (req, res) => {
     res.redirect("/user");
   } catch (err) {
     res.send(err);
+  }
+});
+
+app.get("/new", (req, res) => {
+  res.render("new");
+});
+app.post("/new", async (req, res) => {
+  const { email, username, password } = req.body;
+  const id = faker.string.uuid();
+  let newUserQ = `INSERT INTO user (id, username, email, password) VALUES ('${id}','${username}','${email}','${password}')`;
+  log("hi");
+  try {
+    const [results] = await connection.query(newUserQ);
+    console.log(results);
+    res.redirect("/user");
+  } catch (error) {
+    res.send(error);
   }
 });
 // connection.end();
