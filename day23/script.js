@@ -15,3 +15,10 @@ app.set("views", path.join(__dirname, "/views"));
 app.use(express.static("public"));
 app.listen(port, (req, res) => console.log(`port ${port}`));
 // Create the connection to database
+
+const connection = await mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "delta_app",
+  password: "mysqlServer@8",
+});
