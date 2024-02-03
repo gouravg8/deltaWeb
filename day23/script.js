@@ -39,3 +39,44 @@ app.get("/", async (req, res) => {
   }
   // res.send("from get home");
 });
+
+app.get("/user", async (req, res) => {
+  let detQ = "SELECT id, username, email FROM `user`";
+  try {
+    const [results] = await connection.query(detQ);
+    res.render("userDetail", { results });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+app.get("/user/:id", async (req, res) => {
+  let { id } = req.params;
+  console.log(id);
+  let editQ = `SELECT id, username FROM user WHERE id = '${id}'`;
+  try {
+    const [results] = await connection.query(editQ);
+    console.log(results);
+    res.render("edit", { results });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+app.patch("/user/:id", async (req, res) => {
+  const { id } = req.params;
+  const { username } = req.body;
+  let patchEditQ = `UPDATE user SET username = '${username}' WHERE id = '${id}'`;
+  // console.log(username);
+  // res.send('ho gya')
+
+  // let editQ = `SELECT id, username FROM user WHERE id = '${id}'`;
+  try {
+    const [results] = await connection.query(patchEditQ);
+    console.log(results);
+    res.redirect("/user");
+  } catch (err) {
+    res.send(err);
+  }
+});
+// connection.end();
