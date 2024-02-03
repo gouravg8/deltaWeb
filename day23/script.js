@@ -22,3 +22,20 @@ const connection = await mysql.createConnection({
   database: "delta_app",
   password: "mysqlServer@8",
 });
+
+// accept json data from url
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(methodOverride("_method"));
+
+// console.log(data10);
+app.get("/", async (req, res) => {
+  let lenQ = "SELECT COUNT(id) AS 'results' FROM USER";
+  try {
+    const [results] = await connection.query(lenQ);
+    res.render("home", { results });
+  } catch (err) {
+    res.send(err);
+  }
+  // res.send("from get home");
+});
