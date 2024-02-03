@@ -1,0 +1,15 @@
+<%- include('header', {title: "New Post" }) %>
+<html>
+
+<body>
+  <%let {id, username}=results[0] %>
+  <form action="/user/<%= id %>?_method=PATCH" method="post" class="container my-8 w-3/4 md:w-1/2">
+    <p class="my-2 px-2">
+      id: <%= id %>
+    </p>
+    <input class="p-4" name="username" id="username" type="text" value="<%= username %>" placeholder="Enter new username here" />
+    <button type="submit" class="py-2 my-4 bg-blue-800 hover:bg-blue-700 text-lg font-semibold">Post</button>
+  </form>
+</body>
+
+</html>
