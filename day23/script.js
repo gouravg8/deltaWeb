@@ -5,7 +5,6 @@ import ejs from "ejs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import methodOverride from "method-override";
-import { log } from "console";
 
 const app = express();
 const port = 8080;
@@ -51,20 +50,19 @@ app.get("/user", async (req, res) => {
   }
 });
 
-app.get("/user/:id", async (req, res) => {
+app.get("/user/:id/edit", async (req, res) => {
   let { id } = req.params;
-  console.log(id);
+  // console.log(id);
   let editQ = `SELECT id, username FROM user WHERE id = '${id}'`;
   try {
     const [results] = await connection.query(editQ);
-    console.log(results);
     res.render("edit", { results });
   } catch (err) {
     res.send(err);
   }
 });
 
-app.patch("/user/:id", async (req, res) => {
+app.patch("/user/:id/edit", async (req, res) => {
   const { id } = req.params;
   const { username } = req.body;
   let patchEditQ = `UPDATE user SET username = '${username}' WHERE id = '${id}'`;
@@ -74,7 +72,7 @@ app.patch("/user/:id", async (req, res) => {
   // let editQ = `SELECT id, username FROM user WHERE id = '${id}'`;
   try {
     const [results] = await connection.query(patchEditQ);
-    console.log(results);
+    // console.log(results);
     res.redirect("/user");
   } catch (err) {
     res.send(err);
@@ -90,7 +88,7 @@ app.post("/new", async (req, res) => {
   let newUserQ = `INSERT INTO user (id, username, email, password) VALUES ('${id}','${username}','${email}','${password}')`;
   try {
     const [results] = await connection.query(newUserQ);
-    console.log(results);
+    // console.log(results);
     res.redirect("/user");
   } catch (error) {
     res.send(error);
@@ -102,7 +100,7 @@ app.delete("/user/:id", async (req, res) => {
   const deleteQ = `DELETE FROM user WHERE id = '${id}'`;
   try {
     const [results] = await connection.query(deleteQ);
-    console.log(results);
+    // console.log(results);
     res.redirect("/user");
   } catch (error) {
     res.send(error);
