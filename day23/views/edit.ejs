@@ -3,7 +3,7 @@
 
 <body>
   <%let {id, username}=results[0] %>
-  <form action="/user/<%= id %>?_method=PATCH" method="post" class="container my-8 w-3/4 md:w-1/2">
+  <form action="/user/<%= id %>/edit?_method=PATCH" method="post" class="container my-8 w-3/4 md:w-1/2">
     <p class="my-2 px-2">
       id: <%= id %>
     </p>
