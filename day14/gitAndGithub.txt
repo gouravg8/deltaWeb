@@ -89,7 +89,8 @@ Github: Website used to host "repositories online"
     case 3: commited changes(for multiple commits)
         - git reset <commitHash>
         (iske bad ke sab commits unstage ho jayenge)
-
+    case 4: change DATE
+        - git commit --date='2024-08-12' (yyyy-mm-dd)
     ... delete all the commits after that
         - git reset --hard <commitHash>
 

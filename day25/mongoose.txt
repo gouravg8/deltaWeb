@@ -1,0 +1,93 @@
+## MongoDB(Mongoose)
+    --> Mongoose is a library that ..create a connection... between MongoDB and Nodejs Javasript Runtime Environment
+    --> It is anODM(Object Data Modelling) Library
+
+- npm i mongoose
+
+code: 
+    async function main(){
+        await mongoose.connet('mongodb://127.0.0.1:27017/dbname')
+    }
+
+# Schema
+    --> Schema difines the ...Shape... of the ...documents... within the ...collection...
+
+code:
+    const userSchema = new mogoose.Schema({
+        name: String,
+        email: String,
+        age: Number
+    })
+# Models
+    --> Model in mongoose is a class with which we can costruct document
+
+code: 
+    const User = mongoose.model('User', userSchema);
+
+# Insert(Create)
+    1-> InsetOne
+        const U1 = new User({name: 'suar', email: 'suar@gmail.com', age:45})
+        u1.save() // to save it
+
+    2-> InsetMany
+        User.insertMany([
+            {name: 'suar', email: 'suar@gmail.com', age:45},
+            {name: 'dual', email: 'dual@gmail.com', age:23}
+            {name: 'trid', email: 'trid@gmail.com', age:73}
+        ])
+    
+#* Note: Mogoose uses ...operation buffering...
+    --> Mongoose let you start using your models immidiatly, without waiting for mongoose to establish a connection to MongoDB
+
+# Find(Read)
+    1-> Model.find() or Model.find({}) // return all items in array([]) form to iterate
+        User.find({name: 'gourav'})  // return all filter matched documents in array([])
+    2-> Model.findOne({condition})  // return first condition matched document from collection as obj({})
+        ex: User.findOne({name: 'gourav'})
+    3. Model.findById('id')
+        ex: User.findById('adf3223d324234k') // return one document that matched the condition as obj({})
+
+# Update
+    1-> Model.updateOne({filter/s}, {new values}, {options})
+    2-> Model.updateMany({filter/s}, {new values}, {options})
+
+    # find and Update
+        1-> findOneAndUpdate(codition, new vals, options)   // option{new: true}:> to show updated value, {runValidator: true} run schema validator
+        1-> findByIdAndUpdate(id, new vals, options)    // option{new: true}:> to show updated value, {runValidator: true} run schema validator
+
+# Delete
+    1-> deleteOne
+        Model.deleteOne({filter})  // will delete document that first matches the filter
+    2-> deleteMany
+        Model.deleteMany({filter})  // will delete all documets that matches the fileter
+
+    #find and Delete
+        1-> findOneAndDelete({filter})
+        2-> findByIdAndDelete('id')
+
+# Schema validation
+    --> Basically rultes for schema
+    
+    code:
+        const bookSchema = new mongoose.Schema({
+            title:{
+                type: String,
+                required: true,
+                minLength: [5, 'length is small than 5 character']
+            },
+            author:{
+                type: String
+            },
+            price:{
+                type: Number,
+                min: [condition value, custom error message]
+                ex: min: [0, "value can't be negetive"]
+            },
+            category:{
+                enum:['fiction', 'non-fiction']     //enum: must follow that present in this list
+            }
+        })
+
+#Access errors
+    code:
+        console.log(err.errors.{categoryy.properties.message})  // {}: change according to your fields
