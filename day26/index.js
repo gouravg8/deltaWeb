@@ -34,5 +34,13 @@ app.get("/", (req, res) => {
   res.redirect("/chats");
 });
 
+// index Route
+app.get("/chats", async (req, res) => {
+  let chats = await Chat.find();
+  // console.log(chats);
+  res.render("chats", { chats });
+});
+
+
 
 app.listen(port, () => console.log(`port is on: ${port}`));
