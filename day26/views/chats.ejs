@@ -1,0 +1,43 @@
+<%- include('header', {title: 'All Chats' }) %>
+<html>
+  <body>
+    <% for( let chat of chats ) { %> <% let {_id, from, to, msg,
+    created_at}=chat; %>
+    <div class="div w-fit m-4 bg-green-800 px-4 py-2 rounded">
+      <div
+        class="upperPart flex justify-between align-middle text-xs text-gray-400 h-fit"
+      >
+        <div class="fromto">
+          <span> <%= from %> </span>
+          <i class="ri-arrow-right-line"></i>
+          <span> <%= to %> </span>
+        </div>
+        <div class="rightIcons flex justify-center align-middle">
+          <form
+            method="GET"
+            action="/chats/<%= _id %>/edit"
+            class="text-sm cursor-pointer mx-1 text-center h-0"
+          >
+            <button class="ri-edit-box-line"></button>
+          </form>
+
+          <form
+          method="POST"
+            action="/chats/<%= _id %>?_method=DELETE"
+            class="text-sm cursor-pointer mx-1 h-0"
+          >
+            <button type="submit" class="ri-delete-bin-5-line"></button>
+          </form>
+          
+
+        </div>
+      </div>
+      <p class="text-lg font-semibold"><%= msg %></p>
+      <p class="text-xs text-gray-400">
+        <%= created_at.toString().split(' ')[4] %> • <%=
+        created_at.toString().split(' ').slice(0,4).join(' ') %>
+      </p>
+    </div>
+    <% } %>
+  </body>
+</html>
