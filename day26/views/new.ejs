@@ -1,0 +1,14 @@
+<%- include('header',{title: 'New post' }) %>
+
+    <body>
+        <form action="/chats" method="post" class="flex flex-col p-8 gap-5">
+            <input class="" type="text" name="from" id="" placeholder="Who are you?" required>
+            <input class="" type="text" name="to" id="" placeholder="Enter Reciever" required>
+            <textarea class="p-8" name="msg" placeholder="Enter your message here" id="" cols="30" rows="5"></textarea>
+
+            <button type="submit" class="py-3 bg-blue-500 text-white ">Send</button>
+        </form>
+        
+    </body>
+
+    </html>
