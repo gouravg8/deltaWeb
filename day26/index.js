@@ -41,6 +41,27 @@ app.get("/chats", async (req, res) => {
   res.render("chats", { chats });
 });
 
+// new Chat Route
+app.get("/chats/new", (req, res) => {
+  res.render("new");
+});
+
+// send new Chat Route
+app.post("/chats", async (req, res) => {
+  let { from, to, msg } = req.body;
+  try {
+    await new Chat({
+      from: from,
+      to: to,
+      msg: msg,
+      created_at: new Date(),
+    }).save();
+  } catch (error) {
+    console.error(error);
+  }
+  res.redirect("/chats");
+});
+
 
 
 app.listen(port, () => console.log(`port is on: ${port}`));
