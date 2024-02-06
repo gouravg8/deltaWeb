@@ -91,6 +91,16 @@ app.put("/chats/:id", async (req, res) => {
   }
 });
 
-
+// delete item from the DB
+app.delete("/chats/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log(req.params);
+  try {
+    await Chat.findByIdAndDelete(id);
+    res.redirect("/chats");
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 app.listen(port, () => console.log(`port is on: ${port}`));
