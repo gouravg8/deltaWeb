@@ -62,6 +62,35 @@ app.post("/chats", async (req, res) => {
   res.redirect("/chats");
 });
 
+// edit message Route
+/// get edit form
+app.get("/chats/:id/edit", async (req, res) => {
+  const { id } = req.params;
+  try {
+    let chat = await Chat.findById(id);
+    console.log(id);
+    res.render("edit", { chat });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+/// put new values in DB
+app.put("/chats/:id", async (req, res) => {
+  const { id } = req.params;
+  const { msg } = req.body;
+  try {
+    await Chat.findByIdAndUpdate(
+      id,
+      { msg: msg },
+      { runValidators: true, new: true }
+    );
+    res.redirect("/chats");
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 
 
 app.listen(port, () => console.log(`port is on: ${port}`));
