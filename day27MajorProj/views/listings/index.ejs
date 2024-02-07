@@ -1,0 +1,14 @@
+<%- include('../header', {title: 'All listings'}) %>
+<html>
+  <body>
+    <form action="/listings/new" method="get">
+      <button type="submit">New</button>
+    </form>
+    <% for( let list of listings ) { %>
+    <a href="/listings/<%= list._id %>"><li><%= list.title %></li></a>
+    <form action="/listings/<%= list._id %>?_method=DELETE" method="post">
+      <button type="submit">Delete</button>
+    </form>
+    <% } %>
+  </body>
+</html>
