@@ -1,0 +1,15 @@
+<%- include('../header', {title: listing.title + ' listings'}) %>
+<html>
+  <body>
+    <% const {_id, title, description, image, price, location, country} =
+    listing %>
+    <li><%= title %></li>
+    <li><%= description %></li>
+    <li><%= image %></li>
+    <li>₹<%= price.toLocaleString('en-IN') %></li>
+    <li><%= location %></li>
+    <li><%= country %></li>
+
+    <a href="/listings/<%= _id %>/edit">Edit</a>
+  </body>
+</html>
