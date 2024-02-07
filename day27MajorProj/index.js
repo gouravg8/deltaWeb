@@ -34,7 +34,15 @@ main()
 //   home route
 app.get("/", (req, res) => res.redirect("/listings"));
 
-
+// index Route
+app.get("/listings", async (req, res) => {
+  try {
+    const listings = await Listing.find();
+    res.render("listings/index", { listings });
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 
 
