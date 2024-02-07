@@ -61,7 +61,17 @@ app.post("/listings/", async (req, res) => {
   }
 });
 
-
+// Delete the listing from the server
+app.delete("/listings/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleted = await Listing.findByIdAndDelete(id);
+    console.log("Deleted:", deleted.title);
+    res.redirect("/listings");
+  } catch (error) {
+    console.error(err);
+  }
+});
 
 // Edit Listing
 // get edit form
