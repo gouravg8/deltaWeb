@@ -50,5 +50,15 @@ app.get("/listings", async (req, res) => {
 
 
 
+// individual Listing
+app.get("/listings/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const listing = await Listing.findById(id);
+    res.render("listings/show", { listing });
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 app.listen(port, () => console.log(`port is on: ${port}`));
