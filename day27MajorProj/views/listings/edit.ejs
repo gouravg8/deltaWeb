@@ -1,0 +1,53 @@
+<%- include('../header', {title: 'Edit Listing'}) %>
+<html>
+  <body>
+    <% const {_id,title, description, image, price, location, country} = listing
+    %>
+    <form action="/listings/<%= _id %>?_method=PUT" method="post">
+      <input
+        type="text"
+        name="listing[title]"
+        id="title"
+        placeholder="title"
+        value="<%= title  %>"
+      />
+      <input
+        type="text"
+        name="listing[description]"
+        id="description"
+        placeholder="description"
+        value="<%= description  %>"
+      />
+      <input
+        type="text"
+        name="listing[image]"
+        id="image"
+        placeholder="image"
+        value="<%= image  %>"
+      />
+      <input
+        type="number"
+        name="listing[price]"
+        id="price"
+        min="0"
+        value="<%= price  %>"
+        placeholder="price"
+      />
+      <input
+        type="text"
+        name="listing[location]"
+        id="location"
+        placeholder="location"
+        value="<%= location  %>"
+      />
+      <input
+        type="text"
+        name="listing[country]"
+        id="country"
+        placeholder="country"
+        value="<%= country  %>"
+      />
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>
