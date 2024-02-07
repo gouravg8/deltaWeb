@@ -44,7 +44,22 @@ app.get("/listings", async (req, res) => {
   }
 });
 
+// create new listing Route
+// get the form to fill
+app.get("/listings/new", async (req, res) => {
+  res.render("listings/new");
+});
 
+// post the data into db
+app.post("/listings/", async (req, res) => {
+  try {
+    await Listing(req.body.listing).save();
+    console.log("Added:", req.body.listing.title);
+    res.redirect("/listings");
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 
 
