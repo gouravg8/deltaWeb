@@ -63,7 +63,32 @@ app.post("/listings/", async (req, res) => {
 
 
 
+// Edit Listing
+// get edit form
+app.get("/listings/:id/edit", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const listing = await Listing.findById(id);
+    res.render("listings/edit", { listing });
+  } catch (err) {
+    console.error(err);
+  }
+});
 
+// put updated data to db
+app.put("/listings/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const listing = await Listing.findByIdAndUpdate(id, req.body.listing, {
+      new: true,
+      runValidators: true,
+    });
+    console.log("Updated:", listing.title);
+    res.redirect(`/listings/${id}`);
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 // individual Listing
 app.get("/listings/:id", async (req, res) => {
