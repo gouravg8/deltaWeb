@@ -1,0 +1,35 @@
+<%- include('../header', {title: 'Add new Listing'}) %>
+<html>
+  <body>
+    <form action="/listings" method="post">
+      <input type="text" name="listing[title]" id="title" placeholder="title" />
+      <input
+        type="text"
+        name="listing[description]"
+        id="description"
+        placeholder="description"
+      />
+      <input type="text" name="listing[image]" id="image" placeholder="image" />
+      <input
+        type="number"
+        name="listing[price]"
+        id="price"
+        min="0"
+        placeholder="price"
+      />
+      <input
+        type="text"
+        name="listing[location]"
+        id="location"
+        placeholder="location"
+      />
+      <input
+        type="text"
+        name="listing[country]"
+        id="country"
+        placeholder="country"
+      />
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>
