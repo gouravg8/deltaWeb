@@ -1,8 +1,7 @@
-<%- include('../header', {title: listing.title + ' listings'}) %>
+<%- include('../layouts/header', {title: listing.title + ' listings'}) %>
 <html>
   <body>
-    <% const {_id, title, description, image, price, location, country} =
-    listing %>
+    <% const {_id, title, description, image, price, location, country} = listing %>
     <li><%= title %></li>
     <li><%= description %></li>
     <li><%= image %></li>
