@@ -1,0 +1,66 @@
+1. What are MiddleWares?
+-> It is an intermidiary
+
+    Request --> [Middleware] --> Response
+
+    a. in Express
+        -> Middleware in express are functions that come into play After the server recieves the request and Before the responce is sent to the client
+
+    b. common Middleware functions
+        - methodOverride
+        - bodyParser
+        - express.static
+        - express.urlencoded
+
+    c. Properties
+        - MW can access req and res Obj
+        - chaining is possible (form one MW to another MW using next())
+        - send a response -> they can send response directly from it to the client(res.send())
+
+    d. What MW can do
+        - execute any code
+        - make changes in Req, Res obj
+        - End the Req, Res cycle( by proving {res})
+        - call next MW function in the stack (using next())
+
+    e. work of MW
+        - send responce
+        - do {next}(what to do next) thing
+    
+        Can be
+        - pathed(for special route)
+            ex: app.use('/', (req, res)=> //code )
+        - non-pathed(for all api routes)
+            ex: app.use((req, res) => //code )
+        ===They both will print what was on it but NOT specified what to do next()===
+            ----loading...----
+        
+    f. using next()
+        - next MW funtion is commonly denoted by 'next' name
+        code:
+            app.use((req, res, next)=>{
+                console.log('hey biro');
+                next()
+            })
+
+        - if current MW did not end the req-res cycle, it must call next() to pass the control to the next MW function
+
+        NOTE: Do not write code after next()
+    
+    g. Create utility MW's
+        - Logger(print usefull informations on console)
+        code: 
+            app.use((req, res, next)=>{
+                res.restime = new Date(Date.now()).toString();
+                console.log(req.method, req.path, req.resTime, req.hostname);
+                next(); //passing the control to the next MW
+            })
+        
+    h. exploring app.use()
+        - we can check Authorized or not user using MW before accesing the API's
+        - Write MW very end of the all api's
+        code:
+            app.use((req, res)=>{
+                res.send('page not found');
+            })
+
