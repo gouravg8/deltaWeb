@@ -40,7 +40,7 @@ const checkToken = (req, res, next) => {
   if (token == "giveaccess") {
     next();
   }
-  res.send('error')
+  throw new ExpressError(401, "faltu ka error");
 };
 
 // app.use("/api", (err, req, res, next) => {
