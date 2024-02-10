@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import methodOverride from "method-override";
 import Listing from "./models/Listing.js";
+import ExpressError from "./ExpressError.js";
 
 const app = express();
 const port = 8080;
@@ -33,6 +34,23 @@ main()
 
 //   home route
 app.get("/", (req, res) => res.redirect("/listings"));
+
+const checkToken = (req, res, next) => {
+  let { token } = req.query;
+  if (token == "giveaccess") {
+    next();
+  }
+  res.send('error')
+};
+
+// app.use("/api", (err, req, res, next) => {
+//   let { status, message } = err;
+//   res.status(status).send(message);
+// });
+
+app.get("/api", checkToken, (req, res) => {
+  res.send("data");
+});
 
 // index Route
 app.get("/listings", async (req, res) => {
