@@ -37,7 +37,7 @@ app.get("/", (req, res) => res.redirect("/listings"));
 
 const checkToken = (req, res, next) => {
   let { token } = req.query;
-  if (token == "giveaccess") {
+  if (token === "giveaccess") {
     next();
   }
   throw new ExpressError(401, "faltu ka error");
@@ -51,6 +51,10 @@ const checkToken = (req, res, next) => {
 app.get("/api", checkToken, (req, res) => {
   res.send("data");
 });
+
+app.use((err, req, res, next)=>{
+  res.send(err)
+})
 
 // index Route
 app.get("/listings", async (req, res) => {
