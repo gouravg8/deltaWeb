@@ -65,6 +65,7 @@
             })
 
     i. API TOKEN  as Query String
+        MiddleWare(For normal code)
         code:
             app.use('/api', (req, res, next)=>{
                 let {token} = req.body;
@@ -75,6 +76,11 @@
             })
         
             app.get('/api', (req, res)=> res.send('Data'));
+
+            // error handling MW
+            app.use((err, req, res, next)=>{
+                res.send(err)
+            })
 
     j. Passing Multiple MW's
         const checkToken = (req, res, next) = >{
@@ -122,3 +128,17 @@
             import ExpressError from './ExpressError.js'
 
             return new ExpressError(401, 'Faltu ka error');
+
+
+    m. Handle Async Errors
+        Note: in Async functions the next is not called, we have to call it explicitly
+
+        MiddleWare(Async):
+        code:
+            const checkToken = async(req, res, next)=>{
+                let {token} = await req.query;
+                if(token !== 'giveaccess'){
+                    next(new ExpressErro(401, 'Access forbid ho'));
+                }
+                next();
+            }
