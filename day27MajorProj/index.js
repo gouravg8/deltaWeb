@@ -4,7 +4,8 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import methodOverride from "method-override";
 import Listing from "./models/Listing.js";
-import ExpressError from "./ExpressError.js";
+import ExpressError from "./utils/ExpressError.js";
+import wrapAsync from "./utils/wrapAsync.js";
 
 const app = express();
 const port = 8080;
@@ -31,12 +32,6 @@ async function main() {
 main()
   .then((res) => console.log("Major mongo is connected"))
   .catch((err) => console.error(err));
-
-function wrapAsync(fun) {
-  return function (req, res, next) {
-    fun(req, res, next).catch((err) => next(err));
-  };
-}
 
 //   home route
 app.get("/", (req, res) => res.redirect("/listings"));
@@ -139,13 +134,20 @@ const handleValidation = (err) => {
   return err;
 };
 
+// for invalid path
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page nahi mila"));
+});
+
 app.use((err, req, res, next) => {
   console.log(err.name);
   if (err.name === "ValidationError") err = handleValidation(err);
   next(err);
 });
+
 app.use((err, req, res, next) => {
-  res.send(err);
+  let { status = 500, message = "internal error" } = err;
+  res.status(status).send(message);
 });
 
 app.listen(port, () => console.log(`port is on: ${port}`));
