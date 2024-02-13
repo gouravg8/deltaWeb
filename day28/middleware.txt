@@ -111,7 +111,7 @@
 
 
     l. Custom Error Class
-        -> ExpressError.js
+        -> utils>ExpressError.js
         code:
             class ExpressError extends Error{
                 constructor(status, message){
@@ -125,7 +125,7 @@
 
         -> index.js
         code:
-            import ExpressError from './ExpressError.js'
+            import ExpressError from '.utils/ExpressError.js'
 
             return new ExpressError(401, 'Faltu ka error');
 
@@ -153,6 +153,7 @@
 
     o. replace TryCatch with wrapAsync(beause async tryCatch is bulkey and we want lighter option)
         code:
+            utils> wrapAsync.js
             function wrapAsync(fn){
                 return function(req, res, next){
                     fn(req, res, next).catch(err=> next(err));
@@ -173,3 +174,12 @@
                 if(err.name === 'ValidationError') err = handleError(err);
                 next(err);
             })
+
+    q. Client side validation
+        form validation
+            -> when we enter data in the form the browser and/or the server will check to see that the data is in the correct formate and within the contraints set by application
+
+        validation: client side-> (front to back){required: set to input. default error handler}
+                    server side-> (db(schema)/ error handle)
+
+   
