@@ -142,3 +142,19 @@
                 }
                 next();
             }
+
+    n. Try-Catch for Async Error handling
+        code:
+            try{
+                // code that may cause the error
+            }catch(err){
+                next(err);  // send error to error handling MW
+            }
+
+    o. replace TryCatch with wrapAsync(beause async tryCatch is bulkey and we want lighter option)
+        code:
+            function wrapAsync(fn){
+                return function(req, res, next){
+                    fn(req, res, next).catch(err=> next(err));
+                }
+            }
