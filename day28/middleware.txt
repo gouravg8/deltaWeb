@@ -182,4 +182,30 @@
         validation: client side-> (front to back){required: set to input. default error handler}
                     server side-> (db(schema)/ error handle)
 
-   
+    r. validation for schema
+        -> use joi to validate each input
+        -> it help us to validate server side schema
+
+        schema.js
+        code:
+            import Joi from 'joi'
+            const listingSchema = Joi.object({
+                listing: Joi.object({
+                    title: Joi.string().required(),
+                    description: Joi.string().required(),
+                    location: Joi.string().required(),
+                    country: Joi.string().required(),
+                    price: Joi.number().min(0),
+                    image: Joi.string().allow("", null),
+                }).required()
+            })
+            export default listingSchema
+
+        index.js
+            import listingSchema form 'schema.js'
+            app.post('/listing', (req, res, next)=>{
+                /// code
+                const result = await listingSchema.validate(req.body);
+                if(result.error) throw new ExpressError(400, result.error);
+                /// code
+            })
