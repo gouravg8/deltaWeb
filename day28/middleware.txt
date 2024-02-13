@@ -158,3 +158,18 @@
                     fn(req, res, next).catch(err=> next(err));
                 }
             }
+    
+    p. Mongoose Errors
+        -> to get Error name and send Error message
+        make another MW to handling specific error like 'ValidationError'
+
+        code:
+            function handleError(err){
+                console.log('validation error hai, sahi se fill karo');
+                return err;
+            }
+
+            app.use((err, req, res, next)=>{
+                if(err.name === 'ValidationError') err = handleError(err);
+                next(err);
+            })
