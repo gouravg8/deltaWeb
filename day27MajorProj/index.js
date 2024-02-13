@@ -6,6 +6,7 @@ import methodOverride from "method-override";
 import Listing from "./models/Listing.js";
 import ExpressError from "./utils/ExpressError.js";
 import wrapAsync from "./utils/wrapAsync.js";
+import listingSchema from "./schema.js";
 
 const app = express();
 const port = 8080;
@@ -69,9 +70,17 @@ app.get("/listings/new", async (req, res) => {
   res.render("listings/new");
 });
 
+const validateSchema = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  console.log(error);
+  if (error) throw new ExpressError(400, error.message);
+  else next();
+};
+
 // post the data into db
 app.post(
-  "/listings/",
+  "/listings",
+  validateSchema,
   wrapAsync(async (req, res, next) => {
     await Listing(req.body.listing).save();
     // console.log("Added:", req.body.listing.title);
@@ -140,7 +149,7 @@ app.all("*", (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err.name);
+  // console.log(err.name);
   if (err.name === "ValidationError") err = handleValidation(err);
   next(err);
 });
