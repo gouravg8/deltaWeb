@@ -1,39 +1,93 @@
 <%- include('../layouts/header', {title: 'Add new Listing'}) %>
 <html>
+  <body>
+    <h2 class="w-full text-2xl text-center mx-auto py-4">New Listing</h2>
 
-<body>
-  <h2 class="w-full text-2xl text-center mx-auto py-4">New Listing</h2>
+    <form action="/listings" method="post" class="w-3/4 mx-auto md:text-sm">
+      <label for="full-name" class="leading-7 text-sm text-gray-400"
+        >Title</label
+      >
+      <input
+        type="text"
+        class="placeholder:text-gray-600"
+        name="listing[title]"
+        id="title"
+        placeholder="Super villa"
+        required
+      />
 
-  <form action="/listings" method="post" class="w-3/4 mx-auto md:text-sm">
-    <label for="full-name" class="leading-7 text-sm text-gray-400">Title</label>
-    <input type="text" class="placeholder:text-gray-600" name="listing[title]" id="title" placeholder="Super villa" required />
+      <label for="full-name" class="leading-7 text-sm text-gray-400"
+        >Description</label
+      >
+      <textarea
+        class="placeholder:text-gray-600 p-4"
+        name="listing[description]"
+        id=""
+        cols="30"
+        rows="5"
+        placeholder="Sweet home sweet"
+      ></textarea>
 
-    <label for="full-name" class="leading-7 text-sm text-gray-400">Description</label>
-    <textarea class="placeholder:text-gray-600 p-4" name="listing[description]" id="" cols="30" rows="5" placeholder="Sweet home sweet"></textarea>
+      <label for="full-name" class="leading-7 text-sm text-gray-400"
+        >Image link</label
+      >
+      <input
+        type="text"
+        class="placeholder:text-gray-600"
+        name="listing[image]"
+        id="image"
+        placeholder="https://example.com/720x420"
+        required
+      />
 
-    <label for="full-name" class="leading-7 text-sm text-gray-400">Image link</label>
-    <input type="text" class="placeholder:text-gray-600" name="listing[image]" id="image" placeholder="https://example.com/720x420" />
+      <div class="flex flex-col md:flex-row gap-3">
+        <div class="md:w-1/2">
+          <label for="full-name" class="leading-7 text-sm text-gray-400"
+            >Price</label
+          >
+          <input
+            type="number"
+            class="placeholder:text-gray-600"
+            name="listing[price]"
+            id="price"
+            min="0"
+            placeholder="1200"
+            required
+          />
+        </div>
 
-
-    <div class="flex flex-col md:flex-row gap-3">
-      <div class="md:w-1/2">
-        <label for="full-name" class="leading-7 text-sm text-gray-400">Price</label>
-        <input type="number" class="placeholder:text-gray-600" name="listing[price]" id="price" min="0" placeholder="1200" required />
+        <div class="md:w-1/2">
+          <label for="full-name" class="leading-7 text-sm text-gray-400"
+            >Country</label
+          >
+          <input
+            type="text"
+            class="placeholder:text-gray-600"
+            name="listing[country]"
+            id="country"
+            placeholder="India"
+            required
+          />
+        </div>
       </div>
 
-      <div class="md:w-1/2">
-        <label for="full-name" class="leading-7 text-sm text-gray-400">Country</label>
-        <input type="text" class="placeholder:text-gray-600" name="listing[country]" id="country" placeholder="India" required />
-      </div>
-    </div>
+      <label for="full-name" class="leading-7 text-sm text-gray-400"
+        >Location</label
+      >
+      <input
+        type="text"
+        class="placeholder:text-gray-600"
+        name="listing[location]"
+        id="location"
+        placeholder="Dakshinpuri, virat"
+        required
+      />
 
-    <label for="full-name" class="leading-7 text-sm text-gray-400">Location</label>
-    <input type="text" class="placeholder:text-gray-600" name="listing[location]" id="location" placeholder="Dakshinpuri, virat" required />
-
-
-    <button class="w-full md:w-fit md:text-sm text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Add Listing</button>
-  </form>
-
-</body>
-
+      <button
+        class="w-full md:w-fit md:text-sm text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"
+      >
+        Add Listing
+      </button>
+    </form>
+  </body>
 </html>
