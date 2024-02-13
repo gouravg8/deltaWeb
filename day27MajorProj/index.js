@@ -32,6 +32,12 @@ main()
   .then((res) => console.log("Major mongo is connected"))
   .catch((err) => console.error(err));
 
+function wrapAsync(fun) {
+  return function (req, res, next) {
+    fun(req, res, next).catch((err) => next(err));
+  };
+}
+
 //   home route
 app.get("/", (req, res) => res.redirect("/listings"));
 
@@ -52,10 +58,6 @@ app.get("/api", checkToken, (req, res) => {
   res.send("data");
 });
 
-app.use((err, req, res, next)=>{
-  res.send(err)
-})
-
 // index Route
 app.get("/listings", async (req, res) => {
   try {
@@ -73,15 +75,14 @@ app.get("/listings/new", async (req, res) => {
 });
 
 // post the data into db
-app.post("/listings/", async (req, res) => {
-  try {
+app.post(
+  "/listings/",
+  wrapAsync(async (req, res, next) => {
     await Listing(req.body.listing).save();
-    console.log("Added:", req.body.listing.title);
+    // console.log("Added:", req.body.listing.title);
     res.redirect("/listings");
-  } catch (error) {
-    console.error(error);
-  }
-});
+  })
+);
 
 // Delete the listing from the server
 app.delete("/listings/:id", async (req, res) => {
@@ -131,6 +132,20 @@ app.get("/listings/:id", async (req, res) => {
   } catch (err) {
     console.error(err);
   }
+});
+
+const handleValidation = (err) => {
+  console.log("You have to fill the required fields");
+  return err;
+};
+
+app.use((err, req, res, next) => {
+  console.log(err.name);
+  if (err.name === "ValidationError") err = handleValidation(err);
+  next(err);
+});
+app.use((err, req, res, next) => {
+  res.send(err);
 });
 
 app.listen(port, () => console.log(`port is on: ${port}`));
