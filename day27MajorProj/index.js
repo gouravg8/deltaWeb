@@ -72,9 +72,11 @@ app.get("/listings/new", async (req, res) => {
 
 const validateSchema = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
-  console.log(error);
-  if (error) throw new ExpressError(400, error.message);
-  else next();
+  console.log(req.body);
+  if (error) {
+    console.log("error hai", error);
+    throw new ExpressError(400, error.message);
+  } else next();
 };
 
 // post the data into db
@@ -113,19 +115,23 @@ app.get("/listings/:id/edit", async (req, res) => {
 });
 
 // put updated data to db
-app.put("/listings/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const listing = await Listing.findByIdAndUpdate(id, req.body.listing, {
-      new: true,
-      runValidators: true,
-    });
+app.put(
+  "/listings/:id",
+  validateSchema,
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findByIdAndUpdate(
+      id,
+      { ...req.body.listing },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     console.log("Updated:", listing.title);
     res.redirect(`/listings/${id}`);
-  } catch (err) {
-    console.error(err);
-  }
-});
+  })
+);
 
 // individual Listing
 app.get("/listings/:id", async (req, res) => {
