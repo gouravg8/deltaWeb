@@ -6,7 +6,7 @@
 
   <h2 class="w-full text-2xl text-center mx-auto py-4">Listings Details</h2>
 
-  <div class="cardd w-2/3 h-auto md:w-1/2 border rounded mx-auto">
+  <div class="cardd w-2/3 h-auto md:w-1/2 border rounded mx-auto my-8">
     <div class="upper">
       <img class="rounded-t aspect-[18/9] w-full" src="<%= image %>" alt="" srcset="" />
     </div>
@@ -26,8 +26,21 @@
         <button class="w-fit text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg md:text-sm">Delete</button>
       </form>
     </div>
-
   </div>
+
+
+  <hr class="w-4/5 mx-auto">
+
+  <form action="/listings/<%= id %>/review" method="post" class="w-2/3 mx-auto my-6">
+    <h3 class="text-xl">Leave a Review</h3>
+    <label class="text-base" for="rating">Rating</label>
+    <input class="w-1/2" type="range" name="review[rating]" id="rating" min="0" max="5" step="1">
+
+    <label class="text-base" for="comment">Comment</label>
+    <textarea class="p-2" name="review[comment]" id="comment" cols="30" rows="5" placeholder="Enter your comment here"></textarea>
+
+    <button class="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg md:text-sm" type="submit">Add</button>
+  </form>
 
   <%- include('../layouts/footer') %>
 </body>
