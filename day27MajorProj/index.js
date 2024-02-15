@@ -4,9 +4,10 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import methodOverride from "method-override";
 import Listing from "./models/Listing.js";
+import Review from "./models/Review.js";
 import ExpressError from "./utils/ExpressError.js";
 import wrapAsync from "./utils/wrapAsync.js";
-import listingSchema from "./schema.js";
+import listingSchema, { reviewSchema } from "./schema.js";
 
 const app = express();
 const port = 8080;
@@ -72,9 +73,9 @@ app.get("/listings/new", async (req, res) => {
 
 const validateSchema = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
-  console.log(req.body);
+  // console.log(req.body);
   if (error) {
-    console.log("error hai", error);
+    console.log("listingValidateErrorHai", error);
     throw new ExpressError(400, error.message);
   } else next();
 };
@@ -87,6 +88,33 @@ app.post(
     await Listing(req.body.listing).save();
     // console.log("Added:", req.body.listing.title);
     res.redirect("/listings");
+  })
+);
+
+// validate review schema
+const validateReviewSchema = (req, res, next) => {
+  let { error } = reviewSchema.validate(req.body);
+  // console.log(req.body);
+  if (error) {
+    console.log("reviewValidateErrorHai", error);
+    throw new ExpressError(400, error.message);
+  } else next();
+};
+
+// POST the Review
+app.post(
+  "/listings/:id/review",
+  wrapAsync(async (req, res, next) => {
+    const { id } = await req.params;
+    const listing = await Listing.findById(id);
+    const newReview = await Review(req.body.review);
+
+    listing.reviews.push(newReview);
+
+    await newReview.save();
+    await listing.save();
+    console.log("Review saved", req.body.review);
+    res.redirect(`/listings/${id}`);
   })
 );
 
@@ -137,7 +165,7 @@ app.put(
 app.get("/listings/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show", { listing });
   } catch (err) {
     console.error(err);
