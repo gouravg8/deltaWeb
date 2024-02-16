@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Review from "./Review.js";
+import wrapAsync from "../utils/wrapAsync.js";
 
 const defaultImageLink =
   "https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -32,6 +34,13 @@ const listingSchema = new Schema({
       ref: "Review",
     },
   ],
+});
+
+listingSchema.post("findOneAndDelete", async (listing) => {
+  if (listing) {
+    const res = await Review.deleteMany({ _id: { $in: listing.reviews } });
+    console.log(res);
+  }
 });
 
 const Listing = mongoose.model("Listing", listingSchema);
