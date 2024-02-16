@@ -86,7 +86,7 @@ app.post(
   validateSchema,
   wrapAsync(async (req, res, next) => {
     await Listing(req.body.listing).save();
-    // console.log("Added:", req.body.listing.title);
+    console.log("Added:", req.body.listing.title);
     res.redirect("/listings");
   })
 );
@@ -115,6 +115,27 @@ app.post(
     await newReview.save();
     await listing.save();
     console.log("Review saved", req.body.review);
+    res.redirect(`/listings/${id}`);
+  })
+);
+
+// DELETE the Review
+app.delete(
+  "/listings/:id/review/:reviewId",
+  wrapAsync(async (req, res, next) => {
+    const { id, reviewId } = req.params;
+
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    const reviewDelete = await Review.findByIdAndDelete(reviewId);
+
+    // Delete all reviews findby listingID
+    // let out = await Listing.findByIdAndUpdate(
+    //   "65c3a5192c33247cce57eb6a",
+    //   { $set: { reviews: [] } },
+    //   { new: true }
+    // );
+    console.log("Review Deleted:", reviewDelete);
+
     res.redirect(`/listings/${id}`);
   })
 );
