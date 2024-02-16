@@ -104,6 +104,7 @@ const validateReviewSchema = (req, res, next) => {
 // POST the Review
 app.post(
   "/listings/:id/review",
+  validateReviewSchema,
   wrapAsync(async (req, res, next) => {
     const { id } = await req.params;
     const listing = await Listing.findById(id);
