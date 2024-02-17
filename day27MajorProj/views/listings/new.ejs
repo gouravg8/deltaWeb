@@ -1,10 +1,10 @@
 <%- include('../layouts/header', {title: 'Add new Listing'}) %>
 <html>
   <body>
-    <h2 class="w-full text-2xl text-center mx-auto py-4">New Listing</h2>
+    <h2 class="w-full py-4 mx-auto text-2xl text-center">New Listing</h2>
 
     <form action="/listings" method="post" class="w-3/4 mx-auto md:text-sm">
-      <label for="full-name" class="leading-7 text-sm text-gray-400"
+      <label for="full-name" class="text-sm leading-7 text-gray-400"
         >Title</label
       >
       <input
@@ -16,11 +16,11 @@
         required
       />
 
-      <label for="full-name" class="leading-7 text-sm text-gray-400"
+      <label for="full-name" class="text-sm leading-7 text-gray-400"
         >Description</label
       >
       <textarea
-        class="placeholder:text-gray-600 p-4"
+        class="p-4 placeholder:text-gray-600"
         name="listing[description]"
         id=""
         cols="30"
@@ -29,7 +29,7 @@
         required
       ></textarea>
 
-      <label for="full-name" class="leading-7 text-sm text-gray-400"
+      <label for="full-name" class="text-sm leading-7 text-gray-400"
         >Image link</label
       >
       <input
@@ -40,9 +40,9 @@
         placeholder="https://example.com/720x420"
       />
 
-      <div class="flex flex-col md:flex-row gap-3">
+      <div class="flex flex-col gap-3 md:flex-row">
         <div class="md:w-1/2">
-          <label for="full-name" class="leading-7 text-sm text-gray-400"
+          <label for="full-name" class="text-sm leading-7 text-gray-400"
             >Price</label
           >
           <input
@@ -57,7 +57,7 @@
         </div>
 
         <div class="md:w-1/2">
-          <label for="full-name" class="leading-7 text-sm text-gray-400"
+          <label for="full-name" class="text-sm leading-7 text-gray-400"
             >Country</label
           >
           <input
@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <label for="full-name" class="leading-7 text-sm text-gray-400"
+      <label for="full-name" class="text-sm leading-7 text-gray-400"
         >Location</label
       >
       <input
@@ -84,7 +84,7 @@
       />
 
       <button
-        class="w-full md:w-fit md:text-sm text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"
+        class="w-full px-8 py-2 text-lg text-white bg-red-500 border-0 rounded md:w-fit md:text-sm focus:outline-none hover:bg-red-600"
       >
         Add Listing
       </button>
