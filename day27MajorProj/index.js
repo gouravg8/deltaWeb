@@ -6,16 +6,12 @@ import methodOverride from "method-override";
 import ExpressError from "./utils/ExpressError.js";
 import listings from "./routes/listing.js";
 import reviews from "./routes/review.js";
-import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 8080;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-// cookie parser
-app.use(cookieParser("secretcode"));
 
 // handling post req data, and sending post data into json
 app.use(express.urlencoded({ extended: true }));
@@ -40,13 +36,6 @@ main()
 //   home route
 app.get("/", (req, res) => res.redirect("/listings"));
 
-app.get("/cookie", (req, res) => {
-  res.cookie("name", "gourav", { signed: true });
-  res.send("send");
-});
-app.get("/verify", (req, res) => {
-  res.send(req.signedCookies);
-});
 // Routes
 app.use("/listings", listings);
 app.use("/listings/:id/review", reviews);
