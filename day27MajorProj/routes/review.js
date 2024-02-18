@@ -1,21 +1,21 @@
-import express from 'express'
-import wrapAsync from '../utils/wrapAsync.js';
-import { reviewSchema } from '../schema.js';
-import ExpressError from '../utils/ExpressError.js';
-import Review from '../models/Review.js';
-import Listing from '../models/Listing.js';
+import express from "express";
+import wrapAsync from "../utils/wrapAsync.js";
+import { reviewSchema } from "../schema.js";
+import ExpressError from "../utils/ExpressError.js";
+import Review from "../models/Review.js";
+import Listing from "../models/Listing.js";
 
-const router = express.Router({mergeParams: true})
+const router = express.Router({ mergeParams: true });
 
 // validate review schema
 const validateReviewSchema = (req, res, next) => {
-    let { error } = reviewSchema.validate(req.body);
-    // console.log(req.body);
-    if (error) {
-      console.log("reviewValidateErrorHai", error);
-      throw new ExpressError(400, error.message);
-    } else next();
-  };
+  let { error } = reviewSchema.validate(req.body);
+  // console.log(req.body);
+  if (error) {
+    console.log("reviewValidateErrorHai", error);
+    throw new ExpressError(400, error.message);
+  } else next();
+};
 
 // POST the Review
 router.post(
@@ -58,4 +58,4 @@ router.delete(
   })
 );
 
-export default router
+export default router;

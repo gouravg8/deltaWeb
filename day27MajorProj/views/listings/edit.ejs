@@ -1,40 +1,105 @@
 <%- include('../layouts/header', {title: 'Edit Listing'}) %>
 <html>
+  <body>
+    <h2 class="w-full py-4 mx-auto text-2xl text-center">Edit Listing</h2>
 
-<body>
-  <h2 class="w-full py-4 mx-auto text-2xl text-center">Edit Listing</h2>
-
-  <% const {_id,title, description, image, price, location, country} = listing
+    <% const {_id,title, description, image, price, location, country} = listing
     %>
-  <form action="/listings/<%= _id %>?_method=PUT" method="post" class="w-3/4 mx-auto md:text-sm">
-    <label for="full-name" class="text-sm leading-7 text-gray-400">Title</label>
-    <input type="text" class="placeholder:text-gray-600" name="listing[title]" id="title" placeholder="Super villa" value="<%= title  %>" required />
+    <form
+      action="/listings/<%= _id %>?_method=PUT"
+      method="post"
+      class="w-3/4 mx-auto md:text-sm"
+    >
+      <label for="full-name" class="text-sm leading-7 text-gray-400"
+        >Title</label
+      >
+      <input
+        type="text"
+        class="placeholder:text-gray-600"
+        name="listing[title]"
+        id="title"
+        placeholder="Super villa"
+        value="<%= title  %>"
+        required
+      />
 
-    <label for="full-name" class="text-sm leading-7 text-gray-400">Description</label>
-    <textarea class="p-4 placeholder:text-gray-600" name="listing[description]" id="" cols="30" rows="5" placeholder="Sweet home sweet"><%= description  %></textarea>
+      <label for="full-name" class="text-sm leading-7 text-gray-400"
+        >Description</label
+      >
+      <textarea
+        class="p-4 placeholder:text-gray-600"
+        name="listing[description]"
+        id=""
+        cols="30"
+        rows="5"
+        placeholder="Sweet home sweet"
+      >
+<%= description  %></textarea
+      >
 
-    <label for="full-name" class="text-sm leading-7 text-gray-400">Image link</label>
-    <input type="text" class="placeholder:text-gray-600" name="listing[image]" id="image" placeholder="https://example.com/720x420" value="<%= image  %>" />
+      <label for="full-name" class="text-sm leading-7 text-gray-400"
+        >Image link</label
+      >
+      <input
+        type="text"
+        class="placeholder:text-gray-600"
+        name="listing[image]"
+        id="image"
+        placeholder="https://example.com/720x420"
+        value="<%= image  %>"
+      />
 
+      <div class="flex flex-col gap-3 md:flex-row">
+        <div class="md:w-1/2">
+          <label for="full-name" class="text-sm leading-7 text-gray-400"
+            >Price</label
+          >
+          <input
+            type="number"
+            class="placeholder:text-gray-600"
+            name="listing[price]"
+            id="price"
+            min="0"
+            placeholder="1200"
+            value="<%= price  %>"
+            required
+          />
+        </div>
 
-    <div class="flex flex-col gap-3 md:flex-row">
-      <div class="md:w-1/2">
-        <label for="full-name" class="text-sm leading-7 text-gray-400">Price</label>
-        <input type="number" class="placeholder:text-gray-600" name="listing[price]" id="price" min="0" placeholder="1200" value="<%= price  %>" required />
+        <div class="md:w-1/2">
+          <label for="full-name" class="text-sm leading-7 text-gray-400"
+            >Country</label
+          >
+          <input
+            type="text"
+            class="placeholder:text-gray-600"
+            name="listing[country]"
+            id="country"
+            placeholder="India"
+            value="<%= location  %>"
+            required
+          />
+        </div>
       </div>
 
-      <div class="md:w-1/2">
-        <label for="full-name" class="text-sm leading-7 text-gray-400">Country</label>
-        <input type="text" class="placeholder:text-gray-600" name="listing[country]" id="country" placeholder="India" value="<%= location  %>" required />
-      </div>
-    </div>
+      <label for="full-name" class="text-sm leading-7 text-gray-400"
+        >Location</label
+      >
+      <input
+        type="text"
+        class="placeholder:text-gray-600"
+        name="listing[location]"
+        id="location"
+        placeholder="Dakshinpuri, virat"
+        value="<%= country  %>"
+        required
+      />
 
-    <label for="full-name" class="text-sm leading-7 text-gray-400">Location</label>
-    <input type="text" class="placeholder:text-gray-600" name="listing[location]" id="location" placeholder="Dakshinpuri, virat" value="<%= country  %>" required />
-
-
-    <button class="w-full px-8 py-2 text-lg text-white bg-red-500 border-0 rounded md:w-fit md:text-sm focus:outline-none hover:bg-red-600">Edit Listing</button>
-  </form>
-</body>
-
+      <button
+        class="w-full px-8 py-2 text-lg text-white bg-red-500 border-0 rounded md:w-fit md:text-sm focus:outline-none hover:bg-red-600"
+      >
+        Edit Listing
+      </button>
+    </form>
+  </body>
 </html>
