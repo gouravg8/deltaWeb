@@ -61,6 +61,10 @@ router.get("/:id/edit", async (req, res) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findById(id);
+    if (!listing) {
+      req.flash("error", "Listing is not available for editing");
+      res.redirect("/");
+    }
     res.render("listings/edit", { listing });
   } catch (err) {
     console.error(err);
@@ -92,6 +96,10 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findById(id).populate("reviews");
+    if (!listing) {
+      req.flash("error", "Your searched lising is not found");
+      res.redirect("/");
+    }
     res.render("listings/show", { listing });
   } catch (err) {
     console.error(err);
