@@ -6,23 +6,22 @@ import methodOverride from "method-override";
 import ExpressError from "./utils/ExpressError.js";
 import listings from "./routes/listing.js";
 import reviews from "./routes/review.js";
+import session from "express-session";
+import cookieParser from "cookie-parser";
+import flash from "connect-flash";
 
 const app = express();
 const port = 8080;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
 // handling post req data, and sending post data into json
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// override method
 app.use(methodOverride("_method"));
-// set path of views(ejs)
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
-// set public folder path
 app.use(express.static(path.join(__dirname, "public")));
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";
@@ -33,8 +32,27 @@ async function main() {
 main()
   .then((res) => console.log("Major mongo is connected"))
   .catch((err) => console.error(err));
+
+const sessionOptions = {
+  secret: "mySecretKey",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false,
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000, // for one hour
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+app.use(session(sessionOptions));
+app.use(flash());
 //   home route
 app.get("/", (req, res) => res.redirect("/listings"));
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  next();
+});
 
 // Routes
 app.use("/listings", listings);
