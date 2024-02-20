@@ -18,5 +18,13 @@ const reviewSchema = Joi.object({
   }).required(),
 });
 
+const userReg = Joi.object({
+  userReg: Joi.object({
+    email: Joi.string().required(),
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+  }).required(),
+});
+
 export default listingSchema;
-export { reviewSchema };
+export { reviewSchema, userReg };
