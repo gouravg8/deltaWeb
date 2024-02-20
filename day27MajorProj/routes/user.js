@@ -3,6 +3,7 @@ import wrapAsync from "../utils/wrapAsync.js";
 import { userReg } from "../schema.js";
 import ExpressError from "../utils/ExpressError.js";
 import User from "../models/User.js";
+import flash from "connect-flash";
 
 const router = express.Router({ mergeParams: true });
 
@@ -21,15 +22,20 @@ router.get("/signup", (req, res) => {
 });
 
 // POST the Review
-router.post(
-  "/signup",
-  wrapAsync(async (req, res) => {
+router.post("/signup", async (req, res) => {
+  try {
     const { email, username, password } = req.body.userReg;
-    let regUser = await User.register({ email, username }, password);
+    let newUser = new User({ email, username });
+    let regUser = await User.register(newUser, password);
+    req.flash("success", "User Registerd successfully!!");
 
-    res.send(`regUser: ${regUser}`);
-  })
-);
+    console.log(newUser);
+    res.redirect("/listings");
+  } catch (error) {
+    req.flash("error", error.message);
+    res.redirect("/signup");
+  }
+});
 
 // app.get("/demoUser", async (req, res) => {
 //   let fakeUser = new User({
