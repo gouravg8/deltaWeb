@@ -6,9 +6,13 @@ import methodOverride from "method-override";
 import ExpressError from "./utils/ExpressError.js";
 import listings from "./routes/listing.js";
 import reviews from "./routes/review.js";
+import userReg from "./routes/user.js";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import flash from "connect-flash";
+import passport from "passport";
+import LocalStrategy from "passport-local";
+import User from "./models/User.js";
 
 const app = express();
 const port = 8080;
@@ -46,6 +50,14 @@ const sessionOptions = {
 };
 app.use(session(sessionOptions));
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //   home route
 app.get("/", (req, res) => res.redirect("/listings"));
 
@@ -58,6 +70,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/listings", listings);
 app.use("/listings/:id/review", reviews);
+app.use("/", userReg);
 
 const handleValidation = (err) => {
   console.log("You have to fill the required fields");
