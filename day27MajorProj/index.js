@@ -90,6 +90,8 @@ app.use((err, req, res, next) => {
 
 app.use((err, req, res, next) => {
   let { status = 500, message = "internal error" } = err;
+  req.flash("error", message);
+  // res.status(status).render('layouts/error', {message});
   res.status(status).send(message);
 });
 
