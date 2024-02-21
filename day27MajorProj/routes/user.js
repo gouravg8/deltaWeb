@@ -5,7 +5,7 @@ import ExpressError from "../utils/ExpressError.js";
 import User from "../models/User.js";
 import flash from "connect-flash";
 import passport from "passport";
-import { isLoggedin } from "../middleware.js";
+import { isLoggedin, saveRedirectUrl } from "../middleware.js";
 
 const router = express.Router({ mergeParams: true });
 
@@ -24,15 +24,19 @@ router.get("/signup", (req, res) => {
 });
 
 // POST the Review
-router.post("/signup", async (req, res) => {
+router.post("/signup", saveRedirectUrl, async (req, res) => {
   try {
     const { email, username, password } = req.body.userReg;
     let newUser = new User({ email, username });
     let regUser = await User.register(newUser, password);
-    req.flash("success", "User Registerd successfully!!");
 
     console.log(newUser);
-    res.redirect("/listings");
+    req.login(regUser, (err) => {
+      if (err) return next(err);
+      req.flash("success", "User Registerd successfully!!");
+      let redirectUrl = res.locals.redirectUrl || "/listings";
+      res.redirect(redirectUrl);
+    });
   } catch (error) {
     req.flash("error", error.message);
     res.redirect("/signup");
@@ -45,19 +49,21 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
+  saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true,
   }),
   async (req, res) => {
     req.flash("success", "Logged in!!");
-    res.redirect("/");
+    let redirectUrl = res.locals.redirectUrl || "/listings";
+    res.redirect(redirectUrl);
   }
 );
 
 router.get("/logout", isLoggedin, async (req, res, next) => {
   req.logout((err) => {
-    err && next(err);
+    if (err) return next(err);
     req.flash("success", "Logged out!!");
     res.redirect("/listings");
   });
