@@ -3,6 +3,7 @@ import Listing from "../models/Listing.js";
 import wrapAsync from "../utils/wrapAsync.js";
 import listingSchema from "../schema.js";
 import ExpressError from "../utils/ExpressError.js";
+import { isLoggedin } from "../middleware.js";
 
 const router = express.Router();
 // index Route
@@ -17,7 +18,7 @@ router.get("/", async (req, res) => {
 
 // create new listing Route
 // get the form to fill
-router.get("/new", async (req, res) => {
+router.get("/new", isLoggedin, async (req, res) => {
   res.render("listings/new");
 });
 
@@ -33,6 +34,7 @@ const validateSchema = (req, res, next) => {
 // post the data into db
 router.post(
   "/",
+  isLoggedin,
   validateSchema,
   wrapAsync(async (req, res, next) => {
     await Listing(req.body.listing).save();
@@ -43,7 +45,7 @@ router.post(
 );
 
 // Delete the listing from the server
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isLoggedin, async (req, res) => {
   const { id } = req.params;
   try {
     const deleted = await Listing.findByIdAndDelete(id);
@@ -57,7 +59,7 @@ router.delete("/:id", async (req, res) => {
 
 // Edit Listing
 // get edit form
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", isLoggedin, async (req, res) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findById(id);
@@ -74,6 +76,7 @@ router.get("/:id/edit", async (req, res) => {
 // put updated data to db
 router.put(
   "/:id",
+  isLoggedin,
   validateSchema,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
