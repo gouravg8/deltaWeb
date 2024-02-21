@@ -4,10 +4,12 @@ import { userReg } from "../schema.js";
 import ExpressError from "../utils/ExpressError.js";
 import User from "../models/User.js";
 import flash from "connect-flash";
+import passport from "passport";
+import { isLoggedin } from "../middleware.js";
 
 const router = express.Router({ mergeParams: true });
 
-// validate review schema
+// validate user registration schema
 const validateUserRegister = (req, res, next) => {
   let { error } = userReg.validate(req.body);
   // console.log(req.body);
@@ -35,6 +37,30 @@ router.post("/signup", async (req, res) => {
     req.flash("error", error.message);
     res.redirect("/signup");
   }
+});
+
+router.get("/login", (req, res) => {
+  res.render("user/login");
+});
+
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  async (req, res) => {
+    req.flash("success", "Logged in!!");
+    res.redirect("/");
+  }
+);
+
+router.get("/logout", isLoggedin, async (req, res, next) => {
+  req.logout((err) => {
+    err && next(err);
+    req.flash("success", "Logged out!!");
+    res.redirect("/listings");
+  });
 });
 
 // app.get("/demoUser", async (req, res) => {
