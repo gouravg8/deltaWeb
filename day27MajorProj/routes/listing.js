@@ -98,7 +98,10 @@ router.put(
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id)
+      .populate("reviews")
+      .populate("owner");
+    console.log(listing);
     if (!listing) {
       req.flash("error", "Your searched lising is not found");
       res.redirect("/");
