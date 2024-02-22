@@ -8,7 +8,12 @@ async function main() {
 }
 
 const addData = async () => {
-  await Listing.insertMany(sampleData);
+  // console.log(sampleData);
+  let dataWithOwner = sampleData.map((list) => ({
+    ...list,
+    owner: "65d7548162a61e00588501c7",
+  }));
+  await Listing.insertMany(dataWithOwner);
   console.log("Sample data added");
 };
 
