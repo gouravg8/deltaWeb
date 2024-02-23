@@ -1,9 +1,7 @@
 import express from "express";
 import Listing from "../models/Listing.js";
 import wrapAsync from "../utils/wrapAsync.js";
-import listingSchema from "../schema.js";
-import ExpressError from "../utils/ExpressError.js";
-import { isLoggedin } from "../middleware.js";
+import { isLoggedin, isOwner, validateSchema } from "../middleware.js";
 
 const router = express.Router();
 // index Route
@@ -22,22 +20,15 @@ router.get("/new", isLoggedin, async (req, res) => {
   res.render("listings/new");
 });
 
-const validateSchema = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  // console.log(req.body);
-  if (error) {
-    console.log("listingValidateErrorHai", error);
-    throw new ExpressError(400, error.message);
-  } else next();
-};
-
 // post the data into db
 router.post(
   "/",
   isLoggedin,
   validateSchema,
   wrapAsync(async (req, res, next) => {
-    await Listing(req.body.listing).save();
+    let newUser = new Listing(req.body.listing);
+    newUser.owner = req.user._id;
+    await newUser.save();
     console.log("Added:", req.body.listing.title);
     req.flash("success", "New listing added!");
     res.redirect("/");
@@ -77,6 +68,7 @@ router.get("/:id/edit", isLoggedin, async (req, res) => {
 router.put(
   "/:id",
   isLoggedin,
+  isOwner,
   validateSchema,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
@@ -88,8 +80,9 @@ router.put(
         runValidators: true,
       }
     );
-    console.log("Updated:", listing.title);
+
     req.flash("success", "Listing updated!");
+    console.log("Updated:", listing.title);
     res.redirect(`/listings/${id}`);
   })
 );
