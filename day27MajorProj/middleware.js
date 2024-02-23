@@ -1,6 +1,8 @@
 import Listing from "./models/Listing.js";
+import Review from "./models/Review.js";
 import ExpressError from "./utils/ExpressError.js";
 import listingSchema, { reviewSchema } from "./schema.js";
+
 const isLoggedin = (req, res, next) => {
   if (!req.isAuthenticated()) {
     // redirect after login or sign up to desired path
@@ -18,11 +20,23 @@ const saveRedirectUrl = (req, res, next) => {
   next();
 };
 
+// is current user owner of the listing
 const isOwner = async (req, res, next) => {
   const { id } = req.params;
   let listing = await Listing.findById(id);
   if (!res.locals.currUser._id.equals(listing.owner._id)) {
     req.flash("error", "You are not the owner of this content");
+    res.redirect(`/listings/${id}`);
+  } else next();
+};
+
+// is current user author of review
+const isAuthor = async (req, res, next) => {
+  const { id, reviewId } = req.params;
+  // console.log(reviewId);
+  const review = await Review.findById(reviewId);
+  if (!res.locals.currUser._id.equals(review.author._id)) {
+    req.flash("error", "Yor are not review owner");
     res.redirect(`/listings/${id}`);
   } else next();
 };
@@ -53,4 +67,5 @@ export {
   isOwner,
   validateSchema,
   validateReviewSchema,
+  isAuthor,
 };
