@@ -2,21 +2,22 @@ import express from "express";
 import wrapAsync from "../utils/wrapAsync.js";
 import Review from "../models/Review.js";
 import Listing from "../models/Listing.js";
-import { validateReviewSchema } from "../middleware.js";
+import { validateReviewSchema, isLoggedin, isAuthor } from "../middleware.js";
 
 const router = express.Router({ mergeParams: true });
 
 // POST the Review
 router.post(
   "/",
+  isLoggedin,
   validateReviewSchema,
   wrapAsync(async (req, res, next) => {
     const { id } = await req.params;
     const listing = await Listing.findById(id);
-    const newReview = await Review(req.body.review);
-
-    console.log(id, listing);
-
+    let newReview = await Review(req.body.review);
+    newReview.author = req.user;
+    // console.log(id, listing);
+    console.log(req.user);
     listing.reviews.push(newReview);
 
     await newReview.save();
@@ -30,6 +31,8 @@ router.post(
 // DELETE the Review
 router.delete(
   "/:reviewId",
+  isLoggedin,
+  isAuthor,
   wrapAsync(async (req, res, next) => {
     const { id, reviewId } = req.params;
 
