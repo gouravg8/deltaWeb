@@ -2,7 +2,7 @@
 <html>
   <body>
     <% const {_id: id, title, description, image, price, location, country,
-    owner} = listing %>
+    owner} = listing; %>
 
     <h2 class="w-full py-3 mx-auto text-2xl text-center">Listings Details</h2>
 
@@ -17,12 +17,14 @@
       </div>
       <div class="px-3 py-4 bottom">
         <p class="text-xl font-semibold md:text-base"><%= title %></p>
-        <p class="text-lg font-semibold md:text-sm">@<%= owner.username %></p>
+        <p class="text-lg font-semibold md:text-sm">
+          Owned by <i>@<%= owner.username %></i>
+        </p>
         <p class="text-base md:text-sm"><%= description %></p>
         <p class="md:text-sm">₹<%= price.toLocaleString('en-IN') %>/night</p>
         <p class="md:text-sm"><%= location %>, <%= country %></p>
       </div>
-
+      <% if(currUser && currUser._id.equals(owner._id)) { %>
       <div class="flex gap-4 px-3 btns">
         <a class="h-0" href="/listings/<%= id %>/edit" method="get">
           <button
@@ -42,6 +44,7 @@
           >
             Delete
           </button>
+          <% } %>
         </form>
       </div>
     </div>
