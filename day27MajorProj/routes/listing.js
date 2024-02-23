@@ -36,7 +36,7 @@ router.post(
 );
 
 // Delete the listing from the server
-router.delete("/:id", isLoggedin, async (req, res) => {
+router.delete("/:id", isLoggedin, isOwner, async (req, res) => {
   const { id } = req.params;
   try {
     const deleted = await Listing.findByIdAndDelete(id);
@@ -92,9 +92,9 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findById(id)
-      .populate("reviews")
+      .populate({ path: "reviews", populate: { path: "author" } })
       .populate("owner");
-    console.log(listing);
+    // console.log(listing);
     if (!listing) {
       req.flash("error", "Your searched lising is not found");
       res.redirect("/");
