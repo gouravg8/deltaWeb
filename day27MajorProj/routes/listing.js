@@ -2,67 +2,33 @@ import express from "express";
 import Listing from "../models/Listing.js";
 import wrapAsync from "../utils/wrapAsync.js";
 import { isLoggedin, isOwner, validateSchema } from "../middleware.js";
+import {
+  index,
+  listingNewForm,
+  listingPost,
+  listingDelete,
+  listingEditForm,
+  listingUpdate,
+  listingOneShow,
+} from "../controllers/listing.js";
 
 const router = express.Router();
 // index Route
-router.get("/", async (req, res) => {
-  try {
-    const listings = await Listing.find();
-    res.render("listings/index", { listings });
-  } catch (err) {
-    console.error(err);
-  }
-});
+router.get("/", index);
 
 // create new listing Route
 // get the form to fill
-router.get("/new", isLoggedin, async (req, res) => {
-  res.render("listings/new");
-});
+router.get("/new", isLoggedin, listingNewForm);
 
 // post the data into db
-router.post(
-  "/",
-  isLoggedin,
-  validateSchema,
-  wrapAsync(async (req, res, next) => {
-    let newUser = new Listing(req.body.listing);
-    newUser.owner = req.user._id;
-    await newUser.save();
-    console.log("Added:", req.body.listing.title);
-    req.flash("success", "New listing added!");
-    res.redirect("/");
-  })
-);
+router.post("/", isLoggedin, validateSchema, wrapAsync(listingPost));
 
 // Delete the listing from the server
-router.delete("/:id", isLoggedin, isOwner, async (req, res) => {
-  const { id } = req.params;
-  try {
-    const deleted = await Listing.findByIdAndDelete(id);
-    console.log("Deleted:", deleted.title);
-    req.flash("success", "Listing deleted!");
-    res.redirect("/");
-  } catch (error) {
-    console.error(err);
-  }
-});
+router.delete("/:id", isLoggedin, isOwner, listingDelete);
 
 // Edit Listing
 // get edit form
-router.get("/:id/edit", isLoggedin, async (req, res) => {
-  const { id } = req.params;
-  try {
-    const listing = await Listing.findById(id);
-    if (!listing) {
-      req.flash("error", "Listing is not available for editing");
-      res.redirect("/");
-    }
-    res.render("listings/edit", { listing });
-  } catch (err) {
-    console.error(err);
-  }
-});
+router.get("/:id/edit", isLoggedin, listingEditForm);
 
 // put updated data to db
 router.put(
@@ -70,39 +36,10 @@ router.put(
   isLoggedin,
   isOwner,
   validateSchema,
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const listing = await Listing.findByIdAndUpdate(
-      id,
-      { ...req.body.listing },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-
-    req.flash("success", "Listing updated!");
-    console.log("Updated:", listing.title);
-    res.redirect(`/listings/${id}`);
-  })
+  wrapAsync(listingUpdate)
 );
 
 // individual Listing
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const listing = await Listing.findById(id)
-      .populate({ path: "reviews", populate: { path: "author" } })
-      .populate("owner");
-    // console.log(listing);
-    if (!listing) {
-      req.flash("error", "Your searched lising is not found");
-      res.redirect("/");
-    }
-    res.render("listings/show", { listing });
-  } catch (err) {
-    console.error(err);
-  }
-});
+router.get("/:id", listingOneShow);
 
 export default router;
