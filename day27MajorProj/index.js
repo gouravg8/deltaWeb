@@ -8,7 +8,6 @@ import listings from "./routes/listing.js";
 import reviews from "./routes/review.js";
 import userReg from "./routes/user.js";
 import session from "express-session";
-import cookieParser from "cookie-parser";
 import flash from "connect-flash";
 import passport from "passport";
 import LocalStrategy from "passport-local";
