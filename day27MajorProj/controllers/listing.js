@@ -9,11 +9,11 @@ const index = async (req, res) => {
   }
 };
 
-const listingNewForm = async (req, res) => {
+const renderNewListingForm = async (req, res) => {
   res.render("listings/new");
 };
 
-const listingPost = async (req, res, next) => {
+const createListing = async (req, res, next) => {
   let newUser = new Listing(req.body.listing);
   newUser.owner = req.user._id;
   await newUser.save();
@@ -22,7 +22,7 @@ const listingPost = async (req, res, next) => {
   res.redirect("/");
 };
 
-const listingDelete = async (req, res) => {
+const destroyListing = async (req, res) => {
   const { id } = req.params;
   try {
     const deleted = await Listing.findByIdAndDelete(id);
@@ -34,7 +34,7 @@ const listingDelete = async (req, res) => {
   }
 };
 
-const listingEditForm = async (req, res) => {
+const renderEditFormListing = async (req, res) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findById(id);
@@ -48,7 +48,7 @@ const listingEditForm = async (req, res) => {
   }
 };
 
-const listingUpdate = async (req, res) => {
+const updateListing = async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findByIdAndUpdate(
     id,
@@ -64,7 +64,7 @@ const listingUpdate = async (req, res) => {
   res.redirect(`/listings/${id}`);
 };
 
-const listingOneShow = async (req, res) => {
+const showListing = async (req, res) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findById(id)
@@ -83,10 +83,10 @@ const listingOneShow = async (req, res) => {
 
 export {
   index,
-  listingNewForm,
-  listingPost,
-  listingDelete,
-  listingEditForm,
-  listingUpdate,
-  listingOneShow,
+  renderNewListingForm,
+  createListing,
+  destroyListing,
+  renderEditFormListing,
+  updateListing,
+  showListing,
 };
