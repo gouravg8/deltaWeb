@@ -1,10 +1,9 @@
 import express from "express";
 import wrapAsync from "../utils/wrapAsync.js";
-
+import passport from "passport";
 import {
   isLoggedin,
   saveRedirectUrl,
-  passportAuthenticate,
   validateUserRegister,
 } from "../middleware.js";
 import {
@@ -17,14 +16,22 @@ import {
 
 const router = express.Router({ mergeParams: true });
 
-router.get("/signup", renderSignupForm);
+router
+  .route("/signup")
+  .get(renderSignupForm)
+  .post(saveRedirectUrl, validateUserRegister, signup);
 
-// POST the Review
-router.post("/signup", saveRedirectUrl, validateUserRegister, signup);
-
-router.get("/login", renderLoginForm);
-
-router.post("/login", saveRedirectUrl, passportAuthenticate, wrapAsync(login));
+router
+  .route("/login")
+  .get(renderLoginForm)
+  .post(
+    saveRedirectUrl,
+    passport.authenticate("local", {
+      failureRedirect: "/login",
+      failureFlash: true,
+    }),
+    wrapAsync(login)
+  );
 
 router.get("/logout", isLoggedin, logout);
 

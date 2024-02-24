@@ -1,5 +1,4 @@
 import express from "express";
-import Listing from "../models/Listing.js";
 import wrapAsync from "../utils/wrapAsync.js";
 import { isLoggedin, isOwner, validateSchema } from "../middleware.js";
 import {
@@ -13,33 +12,22 @@ import {
 } from "../controllers/listing.js";
 
 const router = express.Router();
-// index Route
-router.get("/", index);
 
-// create new listing Route
-// get the form to fill
+router
+  .route("/")
+  .get(index)
+  .post(isLoggedin, validateSchema, wrapAsync(createListing));
+
+// create new listing form
 router.get("/new", isLoggedin, renderNewListingForm);
 
-// post the data into db
-router.post("/", isLoggedin, validateSchema, wrapAsync(createListing));
+router
+  .route("/:id")
+  .get(showListing)
+  .put(isLoggedin, isOwner, validateSchema, wrapAsync(updateListing))
+  .delete(isLoggedin, isOwner, destroyListing);
 
-// Delete the listing from the server
-router.delete("/:id", isLoggedin, isOwner, destroyListing);
-
-// Edit Listing
-// get edit form
+// Edit Listing form
 router.get("/:id/edit", isLoggedin, renderEditFormListing);
-
-// put updated data to db
-router.put(
-  "/:id",
-  isLoggedin,
-  isOwner,
-  validateSchema,
-  wrapAsync(updateListing)
-);
-
-// individual Listing
-router.get("/:id", showListing);
 
 export default router;
