@@ -1,73 +1,32 @@
 import express from "express";
 import wrapAsync from "../utils/wrapAsync.js";
-import { userReg } from "../schema.js";
-import ExpressError from "../utils/ExpressError.js";
-import User from "../models/User.js";
-import flash from "connect-flash";
-import passport from "passport";
-import { isLoggedin, saveRedirectUrl } from "../middleware.js";
+
+import {
+  isLoggedin,
+  saveRedirectUrl,
+  passportAuthenticate,
+  validateUserRegister,
+} from "../middleware.js";
+import {
+  renderSignupForm,
+  signup,
+  renderLoginForm,
+  login,
+  logout,
+} from "../controllers/user.js";
 
 const router = express.Router({ mergeParams: true });
 
-// validate user registration schema
-const validateUserRegister = (req, res, next) => {
-  let { error } = userReg.validate(req.body);
-  // console.log(req.body);
-  if (error) {
-    console.log("userReg error hai", error);
-    throw new ExpressError(400, error.message);
-  } else next();
-};
-
-router.get("/signup", (req, res) => {
-  res.render("user/signup");
-});
+router.get("/signup", renderSignupForm);
 
 // POST the Review
-router.post("/signup", saveRedirectUrl, async (req, res) => {
-  try {
-    const { email, username, password } = req.body.userReg;
-    let newUser = new User({ email, username });
-    let regUser = await User.register(newUser, password);
+router.post("/signup", saveRedirectUrl, validateUserRegister, signup);
 
-    console.log(newUser);
-    req.login(regUser, (err) => {
-      if (err) return next(err);
-      req.flash("success", "User Registerd successfully!!");
-      let redirectUrl = res.locals.redirectUrl || "/listings";
-      res.redirect(redirectUrl);
-    });
-  } catch (error) {
-    req.flash("error", error.message);
-    res.redirect("/signup");
-  }
-});
+router.get("/login", renderLoginForm);
 
-router.get("/login", (req, res) => {
-  res.render("user/login");
-});
+router.post("/login", saveRedirectUrl, passportAuthenticate, wrapAsync(login));
 
-router.post(
-  "/login",
-  saveRedirectUrl,
-  passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: true,
-  }),
-  async (req, res) => {
-    req.flash("success", "Logged in!!");
-    let redirectUrl = res.locals.redirectUrl || "/listings";
-    res.redirect(redirectUrl);
-  }
-);
-
-router.get("/logout", isLoggedin, async (req, res, next) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    req.flash("success", "Logged out!!");
-    res.redirect("/listings");
-  });
-});
+router.get("/logout", isLoggedin, logout);
 
 // app.get("/demoUser", async (req, res) => {
 //   let fakeUser = new User({

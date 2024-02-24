@@ -4,12 +4,12 @@ import wrapAsync from "../utils/wrapAsync.js";
 import { isLoggedin, isOwner, validateSchema } from "../middleware.js";
 import {
   index,
-  listingNewForm,
-  listingPost,
-  listingDelete,
-  listingEditForm,
-  listingUpdate,
-  listingOneShow,
+  renderNewListingForm,
+  createListing,
+  destroyListing,
+  renderEditFormListing,
+  updateListing,
+  showListing,
 } from "../controllers/listing.js";
 
 const router = express.Router();
@@ -18,17 +18,17 @@ router.get("/", index);
 
 // create new listing Route
 // get the form to fill
-router.get("/new", isLoggedin, listingNewForm);
+router.get("/new", isLoggedin, renderNewListingForm);
 
 // post the data into db
-router.post("/", isLoggedin, validateSchema, wrapAsync(listingPost));
+router.post("/", isLoggedin, validateSchema, wrapAsync(createListing));
 
 // Delete the listing from the server
-router.delete("/:id", isLoggedin, isOwner, listingDelete);
+router.delete("/:id", isLoggedin, isOwner, destroyListing);
 
 // Edit Listing
 // get edit form
-router.get("/:id/edit", isLoggedin, listingEditForm);
+router.get("/:id/edit", isLoggedin, renderEditFormListing);
 
 // put updated data to db
 router.put(
@@ -36,10 +36,10 @@ router.put(
   isLoggedin,
   isOwner,
   validateSchema,
-  wrapAsync(listingUpdate)
+  wrapAsync(updateListing)
 );
 
 // individual Listing
-router.get("/:id", listingOneShow);
+router.get("/:id", showListing);
 
 export default router;
