@@ -2,6 +2,8 @@ import Listing from "./models/Listing.js";
 import Review from "./models/Review.js";
 import ExpressError from "./utils/ExpressError.js";
 import listingSchema, { reviewSchema } from "./schema.js";
+import passport from "passport";
+import { userReg } from "./schema.js";
 
 const isLoggedin = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -11,6 +13,15 @@ const isLoggedin = (req, res, next) => {
     return res.redirect("/login");
   }
   next();
+};
+// validate user registration schema
+const validateUserRegister = (req, res, next) => {
+  let { error } = userReg.validate(req.body);
+  // console.log(req.body);
+  if (error) {
+    console.log("userReg error hai", error);
+    throw new ExpressError(400, error.message);
+  } else next();
 };
 
 const saveRedirectUrl = (req, res, next) => {
@@ -61,6 +72,14 @@ const validateReviewSchema = (req, res, next) => {
   } else next();
 };
 
+const passportAuthenticate = (req, res, next) => {
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  });
+  next();
+};
+
 export {
   isLoggedin,
   saveRedirectUrl,
@@ -68,4 +87,6 @@ export {
   validateSchema,
   validateReviewSchema,
   isAuthor,
+  passportAuthenticate,
+  validateUserRegister,
 };
