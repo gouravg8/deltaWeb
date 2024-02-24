@@ -72,14 +72,6 @@ const validateReviewSchema = (req, res, next) => {
   } else next();
 };
 
-const passportAuthenticate = (req, res, next) => {
-  passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: true,
-  });
-  next();
-};
-
 export {
   isLoggedin,
   saveRedirectUrl,
@@ -87,6 +79,5 @@ export {
   validateSchema,
   validateReviewSchema,
   isAuthor,
-  passportAuthenticate,
   validateUserRegister,
 };
