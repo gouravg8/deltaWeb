@@ -5,100 +5,123 @@
 
     <% const {_id,title, description, image, price, location, country} = listing
     %>
+
     <form
       action="/listings/<%= _id %>?_method=PUT"
       method="post"
-      class="w-3/4 mx-auto md:text-sm"
+      class="flex flex-col w-3/4 gap-2 mx-auto md:w-1/2 md:text-sm"
     >
-      <label for="full-name" class="text-sm leading-7 text-gray-400"
-        >Title</label
-      >
-      <input
-        type="text"
-        class="placeholder:text-gray-600"
-        name="listing[title]"
-        id="title"
-        placeholder="Super villa"
-        value="<%= title  %>"
-        required
-      />
+      <div class="flex flex-col title">
+        <label
+          for="full-name"
+          class="text-base font-semibold leading-7 md:font-normal md:text-lg"
+          >Title</label
+        >
+        <input
+          type="text"
+          class="p-2 border border-gray-700 focus:outline-none rounded bg-baseColor placeholder:text-gray-600"
+          name="listing[title]"
+          id="title"
+          value="<%= title %>"
+          placeholder="Super villa"
+          required
+        />
+      </div>
 
-      <label for="full-name" class="text-sm leading-7 text-gray-400"
-        >Description</label
-      >
-      <textarea
-        class="p-4 placeholder:text-gray-600"
-        name="listing[description]"
-        id=""
-        cols="30"
-        rows="5"
-        placeholder="Sweet home sweet"
-      >
-<%= description  %></textarea
-      >
+      <div class="flex flex-col descriptoin">
+        <label
+          for="full-name"
+          class="text-base font-semibold leading-7 md:font-normal md:text-lg"
+          >Description</label
+        >
+        <textarea
+          class="p-2 border border-gray-700 focus:outline-none rounded bg-baseColor placeholder:text-gray-600"
+          name="listing[description]"
+          id=""
+          cols="30"
+          rows="5"
+          placeholder="Sweet home sweet"
+          required
+          value=""
+        >
+<%= description %></textarea
+        >
+      </div>
 
-      <label for="full-name" class="text-sm leading-7 text-gray-400"
-        >Image link</label
-      >
-      <input
-        type="text"
-        class="placeholder:text-gray-600"
-        name="listing[image]"
-        id="image"
-        placeholder="https://example.com/720x420"
-        value="<%= image  %>"
-      />
+      <div class="flex flex-col imageLink">
+        <label
+          for="full-name"
+          class="text-base font-semibold leading-7 md:font-normal md:text-lg"
+          >Image link</label
+        >
+        <input
+          value="<%= image %>"
+          type="text"
+          class="p-2 border border-gray-700 focus:outline-none rounded bg-baseColor placeholder:text-gray-600"
+          name="listing[image]"
+          id="image"
+          placeholder="https://example.com/720x420"
+        />
+      </div>
 
-      <div class="flex flex-col gap-3 md:flex-row">
-        <div class="md:w-1/2">
-          <label for="full-name" class="text-sm leading-7 text-gray-400"
+      <div class="flex flex-col gap-3 my-2 md:flex-row">
+        <div class="flex flex-col md:w-1/2">
+          <label
+            for="full-name"
+            class="text-base font-semibold leading-7 md:font-normal md:text-lg"
             >Price</label
           >
           <input
+            value="<%= price %>"
             type="number"
-            class="placeholder:text-gray-600"
+            class="p-2 border border-gray-700 focus:outline-none rounded bg-baseColor placeholder:text-gray-600"
             name="listing[price]"
             id="price"
             min="0"
             placeholder="1200"
-            value="<%= price  %>"
             required
           />
         </div>
 
-        <div class="md:w-1/2">
-          <label for="full-name" class="text-sm leading-7 text-gray-400"
+        <div class="flex flex-col md:w-1/2">
+          <label
+            for="full-name"
+            class="text-base font-semibold leading-7 md:font-normal md:text-lg"
             >Country</label
           >
           <input
+            value="<%= country %>"
             type="text"
-            class="placeholder:text-gray-600"
+            class="p-2 border border-gray-700 focus:outline-none rounded bg-baseColor placeholder:text-gray-600"
             name="listing[country]"
             id="country"
             placeholder="India"
-            value="<%= location  %>"
             required
           />
         </div>
       </div>
 
-      <label for="full-name" class="text-sm leading-7 text-gray-400"
-        >Location</label
-      >
-      <input
-        type="text"
-        class="placeholder:text-gray-600"
-        name="listing[location]"
-        id="location"
-        placeholder="Dakshinpuri, virat"
-        value="<%= country  %>"
-        required
-      />
+      <div class="flex flex-col location">
+        <label
+          for="full-name"
+          class="text-base font-semibold leading-7 md:font-normal md:text-lg"
+          >Location</label
+        >
+        <input
+          type="text"
+          value="<%= location %>"
+          class="p-2 border border-gray-700 focus:outline-none rounded bg-baseColor placeholder:text-gray-600"
+          name="listing[location]"
+          id="location"
+          placeholder="Dakshinpuri, virat"
+          required
+        />
+      </div>
 
       <button
-        class="w-full px-8 py-2 text-lg text-white bg-red-500 border-0 rounded md:w-fit md:text-sm focus:outline-none hover:bg-red-600"
+        class="w-full px-8 py-2 my-2 text-lg text-white bg-red-500 border-0 rounded md:w-fit md:text-sm focus:outline-none hover:bg-red-600"
       >
-        Edit Listing
+        Add Listing
       </button>
     </form>
   </body>

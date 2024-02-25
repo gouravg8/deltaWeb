@@ -6,7 +6,7 @@
 
     <h2 class="w-full py-3 mx-auto text-2xl text-center">Listings Details</h2>
 
-    <div class="w-2/3 h-auto mx-auto my-4 border rounded cardd md:w-1/2">
+    <div class="w-4/5 h-auto mx-auto my-4 border rounded cardd md:w-1/2">
       <div class="upper">
         <img
           class="rounded-t aspect-[18/9] w-full"
@@ -25,7 +25,7 @@
         <p class="md:text-sm"><%= location %>, <%= country %></p>
       </div>
       <% if(currUser && currUser._id.equals(owner._id)) { %>
-      <div class="flex gap-4 px-3 btns">
+      <div class="flex gap-4 px-3 mb-4 btns">
         <a class="h-0" href="/listings/<%= id %>/edit" method="get">
           <button
             class="px-8 py-2 text-lg text-white bg-red-700 border-0 rounded w-fit focus:outline-none hover:bg-red-600 md:text-sm"
@@ -49,41 +49,41 @@
       </div>
     </div>
 
-    <hr class="w-4/5 mx-auto" />
+    <hr class="w-4/5 md:w-1/2 mx-auto my-8 border-gray-500" />
 
     <% if(currUser){ %>
     <form
       action="/listings/<%= id %>/review"
       method="POST"
-      class="w-2/3 mx-auto my-6 md:w-1/2"
+      class="flex flex-col w-2/3 mx-auto my-6 md:w-1/2"
     >
       <h3 class="text-xl md:text-lg">Leave a Review</h3>
       <!-- ________________________________________ -->
-      <fieldset class="starability-slot w-full mb-3">
+      <fieldset class="w-auto mb-3 starability-coinFlip my-4">
         <legend>Basic star rating:</legend>
         <input
           type="radio"
           id="no-rate"
           class="input-no-rate"
-          name="rating"
+          name="review[rating]"
           value="0"
           checked
           aria-label="No rating."
         />
 
-        <input type="radio" id="rate1" name="rating" value="1" />
+        <input type="radio" id="rate1" name="review[rating]" value="1" />
         <label for="rate1">1 star.</label>
 
-        <input type="radio" id="rate2" name="rating" value="2" />
+        <input type="radio" id="rate2" name="review[rating]" value="2" />
         <label for="rate2">2 stars.</label>
 
-        <input type="radio" id="rate3" name="rating" value="3" />
+        <input type="radio" id="rate3" name="review[rating]" value="3" />
         <label for="rate3">3 stars.</label>
 
-        <input type="radio" id="rate4" name="rating" value="4" />
+        <input type="radio" id="rate4" name="review[rating]" value="4" />
         <label for="rate4">4 stars.</label>
 
-        <input type="radio" id="rate5" name="rating" value="5" />
+        <input type="radio" id="rate5" name="review[rating]" value="5" />
         <label for="rate5">5 stars.</label>
 
         <span class="starability-focus-ring"></span>
@@ -93,7 +93,7 @@
 
       <label class="text-base md:text-sm" for="comment">Comment</label>
       <textarea
-        class="p-2 placeholder:text-base md:placeholder:text-sm"
+        class="p-2 border border-gray-500 rounded placeholder:text-base bg-baseColor md:placeholder:text-sm placeholder:text-gray-400"
         name="review[comment]"
         id="comment"
         cols="30"
@@ -111,29 +111,31 @@
     </form>
     <% } %>
 
-    <div class="w-2/3 mx-auto my-5 reviews md:w-1/2 z-0">
+    <div class="z-0 w-2/3 mx-auto my-5 reviews md:w-1/2">
       <p class="text-xl md:text-lg">Reviews</p>
-      <% for( let {_id: reviewId, comment, rating, author} of listing.reviews )
-      { %>
-      <div class="flex justify-between px-4 my-2 oneReview">
+      <% for( let {_id: reviewId, comment, rating, author} of
+      listing.reviews){%>
+      <div class="flex justify-between my-2 oneReview">
         <div class="left">
-          <p class="text-base md:text-sm font-semibold">
+          <p class="text-base font-semibold md:text-sm">
             @<%= author.username %>
           </p>
-          <p class="text-base md:text-sm px-3"><%= comment %></p>
+          <p class="px-3 text-base md:text-sm"><%= comment %></p>
         </div>
-        <p class="starability-result" data-rating="3">Rated: 3 stars</p>
         <div class="flex gap-2 right">
+          <p class="starability-result" data-rating="<%= rating %>">
+            Rated: 3 stars
+          </p>
           <form
             action="/listings/<%= id %>/review/<%= reviewId %>?_method=DELETE"
             method="post"
             class="h-0"
           >
             <button
-              class="text-white bg-black border-0 px-2 py-0.5 focus:outline-none hover:bg-gray-900 rounded text-lg md:text-sm"
+              class="text-white bg-black rounded-full border-0 px-2 py-0.5 focus:outline-none hover:bg-gray-900 rounded text-lg md:text-sm"
               type="submit"
             >
-              <i class="ri-delete-bin-5-line"></i>
+              <i class="ri-delete-bin-5-line text-xl"></i>
             </button>
           </form>
         </div>
