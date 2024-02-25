@@ -10,13 +10,17 @@ import {
   updateListing,
   showListing,
 } from "../controllers/listing.js";
+import multer from "multer";
+import { cloudinary, storage } from "../cloudConfig.js";
+const upload = multer({ storage });
 
 const router = express.Router();
 
 router
   .route("/")
-  .get(index)
-  .post(isLoggedin, validateSchema, wrapAsync(createListing));
+  .get(wrapAsync(index))
+  // .post(isLoggedin, validateSchema, wrapAsync(createListing));
+  .post(isLoggedin, upload.single("listing[image]"), wrapAsync(createListing));
 
 // create new listing form
 router.get("/new", isLoggedin, renderNewListingForm);
