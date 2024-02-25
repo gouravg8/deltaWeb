@@ -7,6 +7,7 @@
       action="/listings"
       method="post"
       class="flex flex-col w-3/4 gap-2 mx-auto md:w-1/2 md:text-sm"
+      enctype="multipart/form-data"
     >
       <div class="flex flex-col title">
         <label
@@ -41,7 +42,7 @@
         ></textarea>
       </div>
 
-      <div class="flex flex-col imageLink">
+      <!-- <div class="flex flex-col imageLink">
         <label
           for="full-name"
           class="text-base font-semibold leading-7 md:font-normal md:text-lg"
@@ -50,6 +51,21 @@
         <input
           type="text"
           class="p-2 border border-gray-700 focus:outline-none rounded bg-baseColor placeholder:text-gray-600"
+          name="listing[image]"
+          id="image"
+          placeholder="https://example.com/720x420"
+        />
+      </div> -->
+
+      <div class="flex flex-col imageLink">
+        <label
+          for="full-name"
+          class="text-base font-semibold leading-7 md:font-normal md:text-lg"
+          >Upload Image</label
+        >
+        <input
+          type="file"
+          class="p-2 cursor-pointer focus:outline-none rounded bg-baseColor placeholder:text-gray-600 block w-full text-sm text-slate-500 file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
           name="listing[image]"
           id="image"
           placeholder="https://example.com/720x420"
