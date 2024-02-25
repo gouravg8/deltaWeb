@@ -14,9 +14,13 @@ const renderNewListingForm = async (req, res) => {
 };
 
 const createListing = async (req, res, next) => {
-  let newUser = new Listing(req.body.listing);
-  newUser.owner = req.user._id;
-  await newUser.save();
+  const url = req.file.path;
+  const filename = req.file.filename;
+
+  let newListing = new Listing(req.body.listing);
+  newListing.owner = req.user._id;
+  newListing.image = { url, filename };
+  await newListing.save();
   console.log("Added:", req.body.listing.title);
   req.flash("success", "New listing added!");
   res.redirect("/");
