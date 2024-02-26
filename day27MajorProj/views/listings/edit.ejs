@@ -7,6 +7,7 @@
     %>
 
     <form
+      enctype="multipart/form-data"
       action="/listings/<%= _id %>?_method=PUT"
       method="post"
       class="flex flex-col w-3/4 gap-2 mx-auto md:w-1/2 md:text-sm"
@@ -52,16 +53,20 @@
         <label
           for="full-name"
           class="text-base font-semibold leading-7 md:font-normal md:text-lg"
-          >Image link</label
+          >Image</label
         >
         <input
-          value="<%= image %>"
-          type="text"
-          class="p-2 border border-gray-700 focus:outline-none rounded bg-baseColor placeholder:text-gray-600"
+          type="file"
+          class="p-2 cursor-pointer focus:outline-none rounded bg-baseColor placeholder:text-gray-600 block w-full text-sm text-slate-500 file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
           name="listing[image]"
           id="image"
-          placeholder="https://example.com/720x420"
         />
+        <!-- <img
+          src="<%#= image.url %>"
+          alt="<%#= image.filename %>"
+          srcset=""
+          class="h-60 w-80 mx-auto rounded my-3"
+        /> -->
       </div>
 
       <div class="flex flex-col gap-3 my-2 md:flex-row">
