@@ -63,6 +63,13 @@ const updateListing = async (req, res) => {
     }
   );
 
+  if (typeof req.file !== "undefined") {
+    const url = req.file.path;
+    const filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+  }
+
   req.flash("success", "Listing updated!");
   console.log("Updated:", listing.title);
   res.redirect(`/listings/${id}`);
