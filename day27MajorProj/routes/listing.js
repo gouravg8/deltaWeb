@@ -28,7 +28,13 @@ router.get("/new", isLoggedin, renderNewListingForm);
 router
   .route("/:id")
   .get(showListing)
-  .put(isLoggedin, isOwner, validateSchema, wrapAsync(updateListing))
+  .put(
+    isLoggedin,
+    isOwner,
+    upload.single("listing[image]"),
+    validateSchema,
+    wrapAsync(updateListing)
+  )
   .delete(isLoggedin, isOwner, destroyListing);
 
 // Edit Listing form
