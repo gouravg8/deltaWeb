@@ -49,7 +49,7 @@ const renderEditFormListing = async (req, res) => {
 
     let outUrl = listing.image.url;
     outUrl = outUrl.replace("/upload", "/upload/ar_1.5,w_200");
-    console.log(outUrl);
+    // console.log(outUrl);
     res.render("listings/edit", { listing, outUrl });
   } catch (err) {
     console.error(err);
