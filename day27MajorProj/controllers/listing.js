@@ -46,7 +46,11 @@ const renderEditFormListing = async (req, res) => {
       req.flash("error", "Listing is not available for editing");
       res.redirect("/");
     }
-    res.render("listings/edit", { listing });
+
+    let outUrl = listing.image.url;
+    outUrl = outUrl.replace("/upload", "/upload/ar_1.5,w_200");
+    console.log(outUrl);
+    res.render("listings/edit", { listing, outUrl });
   } catch (err) {
     console.error(err);
   }
