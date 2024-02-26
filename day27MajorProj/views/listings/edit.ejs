@@ -61,12 +61,18 @@
           name="listing[image]"
           id="image"
         />
-        <!-- <img
-          src="<%#= image.url %>"
-          alt="<%#= image.filename %>"
+        <label
+          class="text-base font-semibold leading-7 md:font-normal md:text-lg"
+          for="previewImage"
+          >Original image:</label
+        >
+        <img
+          src="<%= outUrl %>"
+          alt=""
           srcset=""
-          class="h-60 w-80 mx-auto rounded my-3"
-        /> -->
+          id="previewImage"
+          class="mx-auto rounded my-3"
+        />
       </div>
 
       <div class="flex flex-col gap-3 my-2 md:flex-row">
