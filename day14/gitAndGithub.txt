@@ -99,3 +99,6 @@ Github: Website used to host "repositories online"
     ... A fork is anew repo that shares code and visibility setting with the original "upsteam" repo
     => Form is a rough copy
     => And can merge on other original repo by PR (pull request)
+
+To see the localhost output in mobile
+    ipconfig | grep "inet " | grep -Fv localhost:8080 | awk '{print $2}'
