@@ -1,6 +1,6 @@
 <%- include('header', {title: title}) %>
 <header
-  class="relative w-full text-gray-400 px-2 sticky top-0 bg-[#0f1418] z-0 h-full md:h-14 py-2"
+  class="relative w-full text-gray-400 px-2 sticky top-0 bg-[#0f1418] z-10 h-full md:h-14 py-2"
 >
   <div
     class="container flex flex-wrap justify-between gap-2 mx-auto align-middle md:h-14"
@@ -27,21 +27,40 @@
       </nav>
     </div>
 
-    <div class="rightt md:py-1">
-      <nav
-        class="flex justify-end h-auto gap-4 text-base text-center align-middle"
-      >
+    <!-- <form
+      class="py-1 h-fit flex w-fit md:w-1/2 mx-auto"
+      action="#"
+      method="post"
+    >
+      <input
+        class="px-5 py-1 h-9 border border-gray-700 focus:outline-none rounded-l-full bg-baseColor placeholder:text-gray-600 placeholder:text-sm text-sm w-fit md:w-full"
+        type="text"
+        placeholder="Search listing"
+        name="search"
+        id="inpSearch"
+      />
+      
+      <i
+        class="ri-search-2-line text-xl bg-red-500 text-black rounded-r-full px-2 py-1 cursor-pointer -ml-1 md:flex-wrap font-semibold"
+      ></i>
+     
+    </form> -->
+
+    <div class="rightt h-fit">
+      <nav class="flex justify-end gap-4 text-base text-center align-middle">
         <% if(!currUser){%>
-        <a
-          href="/login"
-          class="h-8 m-0 text-sm cursor-pointer hover:text-gray-600"
-          >Login</a
-        >
-        <a
-          href="/signup"
-          class="h-8 m-0 text-sm cursor-pointer hover:text-gray-600"
-          >Signup</a
-        >
+        <div class="loginSignup p-2 flex gap-4 text-center">
+          <a
+            href="/login"
+            class="h-8 text-sm cursor-pointer hover:text-gray-600"
+            >Login</a
+          >
+          <a
+            href="/signup"
+            class="h-8 text-sm cursor-pointer hover:text-gray-600"
+            >Signup</a
+          >
+        </div>
         <% }else{ %> <%- include('../layouts/user') %> <% } %>
       </nav>
     </div>
