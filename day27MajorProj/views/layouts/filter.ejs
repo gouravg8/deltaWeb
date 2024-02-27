@@ -1,5 +1,5 @@
 <div
-  class="flex flex-wrap align-middle justify-evenly my-3 px-3 md:px-20 py-1 w-full bg-[#212B31] rounded-full"
+  class="flex flex-wrap align-middle justify-evenly my-3 px-3 md:px-20 py-1 min-w-full bg-[#212B31] md:rounded-full rounded-none z-0"
 >
   <div
     class="filter flex flex-col text-center opacity-40 hover:opacity-100 cursor-pointer mr-3"
@@ -46,8 +46,8 @@
   <div
     class="filter flex flex-col text-center opacity-40 hover:opacity-100 cursor-pointer mr-3"
   >
-    <i class="ri-building-fi text-2xl"></i>
-    <p class="text-sm>Iconic city</p>
+    <i class="ri-building-fill text-2xl"></i>
+    <p class="text-sm">Iconic city</p>
   </div>
   <div
     class="filter flex flex-col text-center opacity-40 hover:opacity-100 cursor-pointer mr-3"
@@ -55,4 +55,14 @@
     <i class="ri-key-2-fill text-2xl"></i>
     <p class="text-sm">New</p>
   </div>
+
+  <label
+    class="filter flex flex-col align-middle text-center cursor-pointer mr-3"
+  >
+    <input type="checkbox" id="showTax" value="" class="sr-only peer" />
+    <i
+      class="text-2xl relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 mx-auto my-1"
+    ></i>
+    <p class="text-sm">Display Tax</p>
+  </label>
 </div>
