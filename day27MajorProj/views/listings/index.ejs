@@ -1,6 +1,6 @@
 <%- include('../layouts/nav', {title: 'All listings'}) %>
 <html>
-  <body>
+  <body class="overflow-hidden">
     <%- include('../layouts/filter') %>
     <h2 class="w-full py-4 mx-auto text-2xl text-center">All Listings</h2>
     <section
@@ -20,11 +20,15 @@
         </div>
         <div class="px-3 py-4 bottom">
           <p class="text-xl font-semibold md:text-base"><%= title %></p>
-          <p class="md:text-sm">₹<%= price.toLocaleString('en-IN') %>/night</p>
+          <p class="md:text-sm">
+            ₹<%= price.toLocaleString('en-IN') %>/night
+            <span class="price hidden font-semibold italic">+ 18% GST</span>
+          </p>
         </div>
       </div>
       <% } %>
     </section>
     <%- include('../layouts/footer') %>
+    <script src="/js/script.js"></script>
   </body>
 </html>
