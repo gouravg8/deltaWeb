@@ -14,6 +14,7 @@ import listings from "./routes/listing.js";
 import reviews from "./routes/review.js";
 import userReg from "./routes/user.js";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import flash from "connect-flash";
 import passport from "passport";
 import LocalStrategy from "passport-local";
@@ -21,6 +22,7 @@ import User from "./models/User.js";
 
 const app = express();
 const port = 8080;
+const dbUrl = process.env.ATLAS_URL;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -42,7 +44,16 @@ main()
   .then((res) => console.log("Major mongo is connected"))
   .catch((err) => console.error(err));
 
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: "mySecretKey@Wonderlust",
+  },
+  touchAfter: 24 * 3600,
+});
+
 const sessionOptions = {
+  store,
   secret: "mySecretKey",
   resave: false,
   saveUninitialized: true,
