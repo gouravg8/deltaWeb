@@ -5,7 +5,7 @@
 `Request` --> `[Middleware]` --> `Response`
 
 1. in Express
-   -> Middleware in express are functions that come into play After the server recieves the request and Before the responce is sent to the client
+   - Middleware in express are functions that come into play After the server recieves the request and Before the responce is sent to the client
 
 2. common Middleware functions - methodOverride - bodyParser - express.static - express.urlencoded
 
@@ -201,7 +201,7 @@
 
 7. validation for schema
 
-   - use joi to validate each input
+   - use `Joi` to validate each input
    - it help us to validate server side schema
 
    `schema.js`
