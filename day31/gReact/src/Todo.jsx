@@ -25,6 +25,7 @@ function InputFields() {
     setTodoList((prev) => prev.filter((todo) => todo.key != key));
   }
 
+  // eslint-disable-next-line no-unused-vars
   function updateTodo(key) {
     setTodoList((prevTodo) =>
       prevTodo.map((item) =>
