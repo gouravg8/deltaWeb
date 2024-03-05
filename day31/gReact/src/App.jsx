@@ -1,22 +1,20 @@
 import "./App.css";
-import Card from "./Card";
+// import Count from "./Count";
+import Todo from "./Todo";
+// import Card from "./Card";
 
 function App() {
   return (
     <>
-      <h2 style={{ textAlign: "center" }}>
+      {/* <h2 style={{ textAlign: "center" }}>
         Grab the latest deal in electronics
-      </h2>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "10px",
-        }}
-      >
-        <Card
+      </h2> */}
+      <div className="mx-auto my-12 w-fit">
+        {/* <Count /> */}
+
+        <Todo />
+
+        {/* <Card
           title={"Mx master"}
           description={["800 dpi", "5 buttons"]}
           src={
@@ -42,7 +40,7 @@ function App() {
           }
           oldPrice={19000}
           newPrice={1200}
-        />
+        /> */}
       </div>
     </>
   );
