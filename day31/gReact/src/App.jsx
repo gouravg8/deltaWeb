@@ -1,12 +1,14 @@
 import "./App.css";
-import Lottery from "./Lottery/Lottery";
-import { sum } from "./Lottery/LotteryHelper";
+import Joke from "./Joke";
+// import Comment from "./Comment";
+// import Lottery from "./Lottery/Lottery";
+// import { sum } from "./Lottery/LotteryHelper";
 // import Count from "./Count";
 // import Todo from "./Todo";
 // import Card from "./Card";
 
 function App() {
-  let winCondition = (arr) => sum(arr) === 24;
+  // let winCondition = (arr) => sum(arr) === 24;
   return (
     <>
       {/* <h2 style={{ textAlign: "center" }}>
@@ -14,15 +16,17 @@ function App() {
       </h2> */}
       <div
         style={{ height: "100vh" }}
-        className="flex align-middle justify-center my-24 w-full"
+        className="flex flex-col align-middle justify-center w-2/3 md:w-1/2 lg:w-1/3 mx-auto"
       >
         {/* <Count /> */}
 
         {/* <Todo /> */}
 
-        <div>
-          <Lottery n={4} winCondition={winCondition} />
-        </div>
+        {/* <div> */}
+        {/* <Lottery n={4} winCondition={winCondition} /> */}
+        {/* <Comment /> */}
+        <Joke />
+        {/* </div> */}
 
         {/* <Card
           title={"Mx master"}
