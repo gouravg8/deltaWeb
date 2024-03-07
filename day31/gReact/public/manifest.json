@@ -1,0 +1,15 @@
+{
+  "name": "Gs Dark Jokes",
+  "short_name": "Gs Jokes",
+  "icons": [
+    {
+      "src": "https://fav.farm/😎",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
