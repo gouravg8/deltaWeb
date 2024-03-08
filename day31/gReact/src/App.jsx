@@ -1,5 +1,6 @@
 import "./App.css";
-import Joke from "./Joke";
+import Weather from "./WeatherAPI/Weather";
+// import Joke from "./Joke";
 // import Comment from "./Comment";
 // import Lottery from "./Lottery/Lottery";
 // import { sum } from "./Lottery/LotteryHelper";
@@ -16,7 +17,7 @@ function App() {
       </h2> */}
       <div
         style={{ height: "100vh" }}
-        className="flex flex-col align-middle justify-center w-2/3 md:w-1/2 lg:w-1/3 mx-auto"
+        className="flex flex-col align-middle justify-center w-2/3 md:w-1/2 lg:w-1/3 mx-auto text-center dark"
       >
         {/* <Count /> */}
 
@@ -25,7 +26,9 @@ function App() {
         {/* <div> */}
         {/* <Lottery n={4} winCondition={winCondition} /> */}
         {/* <Comment /> */}
-        <Joke />
+        {/* <Joke /> */}
+        <Weather />
+
         {/* </div> */}
 
         {/* <Card
